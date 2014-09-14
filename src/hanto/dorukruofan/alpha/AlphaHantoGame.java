@@ -11,18 +11,30 @@ import hanto.common.MoveResult;
 import java.util.HashMap;
 
 public class AlphaHantoGame implements HantoGame{
-	HashMap<HantoCoordinateGrid, HantoPiece> piecesOnBoard= new HashMap<HantoCoordinateGrid, HantoPiece>();
+	HashMap<String, HantoPiece> piecesOnBoard= new HashMap<String, HantoPiece>();
 	private boolean blueMoves = true;
 	private boolean firstMove = true;
 	
 	@Override
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
+		onlyPlacingAllowed(from);
+		checkPieceIsButterFly(pieceType);
 		firstMoveValidation(to);
 		coordinateConflictValidation(to);
 		MoveResult result = getResult(to);
 		saveToPiecesOnBoard(to, pieceType);
 		return result;
+	}
+	
+	private void onlyPlacingAllowed(HantoCoordinate from) throws HantoException{
+		if(from != null)
+			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
+	}
+	
+	private void checkPieceIsButterFly(HantoPieceType pieceType) throws HantoException{
+		if(pieceType != HantoPieceType.BUTTERFLY)
+			throw new HantoException("The only piece supported in Alpha is Butterfly");
 	}
 	
 	private void firstMoveValidation(HantoCoordinate to) throws HantoException{
@@ -34,7 +46,7 @@ public class AlphaHantoGame implements HantoGame{
 		}
 	}
 	private void coordinateConflictValidation(HantoCoordinate to) throws HantoException{
-		if(piecesOnBoard.containsKey(to)){
+		if(piecesOnBoard.containsKey(to.getX()+","+to.getY())){
 			throw new HantoException("There is a piece on the specified destination coordinate");
 		}
 	}
@@ -54,19 +66,14 @@ public class AlphaHantoGame implements HantoGame{
 		}
 	}
 	private void saveToPiecesOnBoard(HantoCoordinate to, HantoPieceType pieceType){
-		Piece piece = new Piece(blueMoves ? HantoPlayerColor.BLUE : HantoPlayerColor.RED, pieceType);
-		piecesOnBoard.put(new HantoCoordinateGrid(to), piece);
-		//System.out.println(piecesOnBoard.containsKey(new HantoCoordinateGrid(to.getX(), to.getY())));
-		//System.out.println(piecesOnBoard.containsKey(new HantoCoordinateGrid(to.getX(), to.getY())));
+		Piece piece = new Piece(blueMoves ? HantoPlayerColor.RED : HantoPlayerColor.BLUE, pieceType);
+		piecesOnBoard.put(to.getX()+","+to.getY(), piece);
 		
 	}
 
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		//HantoPiece piece;
-		//System.out.println(where);
-		//System.out.println(piecesOnBoard.containsKey(where));
-		return piecesOnBoard.get(new HantoCoordinateGrid(where));
+		return piecesOnBoard.get(where.getX()+","+where.getY());
 	}
 
 	@Override

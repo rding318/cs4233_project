@@ -25,7 +25,6 @@ import org.junit.Test;
 public class AlphaHantoGameTest{
 	
 	HantoGame alphaGame;
-	HantoPieceType butterfly;
 	HantoCoordinate origin;
 	HantoCoordinate point1, point2;
 	boolean redNotFirst;
@@ -37,29 +36,29 @@ public class AlphaHantoGameTest{
 		point2 = new HantoCoordinateGrid(1, 1);
 		origin = new HantoCoordinateGrid(0, 0);
 		redNotFirst = true;
-		
+
 	}
 	
 	@Test(expected = HantoException.class)
 	public void coordinateCheck() throws HantoException{
-		alphaGame.makeMove(butterfly, null, point1);
+		alphaGame.makeMove(HantoPieceType.BUTTERFLY, null, point1);
 	}
 	
 	@Test
 	public void blueFirst() throws HantoException {
-		assertEquals(alphaGame.makeMove(butterfly, null, origin), MoveResult.OK);
-		assertEquals(alphaGame.makeMove(butterfly, null, point1), MoveResult.DRAW);
+		assertEquals(alphaGame.makeMove(HantoPieceType.BUTTERFLY, null, origin), MoveResult.OK);
+		assertEquals(alphaGame.makeMove(HantoPieceType.BUTTERFLY, null, point1), MoveResult.DRAW);
 	}
 	
 	@Test(expected = HantoException.class)
 	public void twoPieceOnSameCoordinate() throws HantoException{
-		alphaGame.makeMove(butterfly, null, origin);
-		alphaGame.makeMove(butterfly, null, origin);
+		alphaGame.makeMove(HantoPieceType.BUTTERFLY, null, origin);
+		alphaGame.makeMove(HantoPieceType.BUTTERFLY, null, origin);
 	}
 	
 	@Test(expected = HantoException.class)
 	public void notAdjacentToOrigin() throws HantoException{
-		alphaGame.makeMove(butterfly, null, origin);
-		alphaGame.makeMove(butterfly, null, point2);
+		alphaGame.makeMove(HantoPieceType.BUTTERFLY, null, origin);
+		alphaGame.makeMove(HantoPieceType.BUTTERFLY, null, point2);
 	}
 }
