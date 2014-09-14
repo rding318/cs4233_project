@@ -11,7 +11,7 @@ import hanto.common.MoveResult;
 import java.util.HashMap;
 
 public class AlphaHantoGame implements HantoGame{
-	HashMap<HantoCoordinate, HantoPiece> piecesOnBoard= new HashMap<HantoCoordinate, HantoPiece>();
+	HashMap<HantoCoordinateGrid, HantoPiece> piecesOnBoard= new HashMap<HantoCoordinateGrid, HantoPiece>();
 	private boolean blueMoves = true;
 	private boolean firstMove = true;
 	
@@ -55,13 +55,18 @@ public class AlphaHantoGame implements HantoGame{
 	}
 	private void saveToPiecesOnBoard(HantoCoordinate to, HantoPieceType pieceType){
 		Piece piece = new Piece(blueMoves ? HantoPlayerColor.BLUE : HantoPlayerColor.RED, pieceType);
-		piecesOnBoard.put(to, piece);
+		piecesOnBoard.put(new HantoCoordinateGrid(to), piece);
+		//System.out.println(piecesOnBoard.containsKey(new HantoCoordinateGrid(to.getX(), to.getY())));
+		//System.out.println(piecesOnBoard.containsKey(new HantoCoordinateGrid(to.getX(), to.getY())));
+		
 	}
 
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		// TODO Auto-generated method stub
-		return null;
+		//HantoPiece piece;
+		//System.out.println(where);
+		//System.out.println(piecesOnBoard.containsKey(where));
+		return piecesOnBoard.get(new HantoCoordinateGrid(where));
 	}
 
 	@Override

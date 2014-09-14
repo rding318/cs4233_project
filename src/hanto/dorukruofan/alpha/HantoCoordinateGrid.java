@@ -11,6 +11,10 @@ public class HantoCoordinateGrid implements HantoCoordinate {
 		this.x = x;
 		this.y = y;
 	}
+	public HantoCoordinateGrid(HantoCoordinate coord){
+		this.x = coord.getX();
+		this.y = coord.getY();
+	}
 	
 	@Override
 	public int getX() {
@@ -20,6 +24,15 @@ public class HantoCoordinateGrid implements HantoCoordinate {
 	@Override
 	public int getY() {
 		return y;
+	}
+	
+	public boolean equals(Object o){
+		if(o instanceof HantoCoordinateGrid){
+			HantoCoordinateGrid coord = (HantoCoordinateGrid) o;
+			return this.x == coord.getX() && this.y == coord.getX();
+		}else{
+			return false;
+		}
 	}
 
 }
