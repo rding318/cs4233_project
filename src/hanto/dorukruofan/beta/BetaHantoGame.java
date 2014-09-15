@@ -10,30 +10,31 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.dorukruofan.alpha.HantoCoordinateGrid;
-import hanto.dorukruofan.alpha.Piece;
+import hanto.dorukruofan.common.MyCoordinate;
+import hanto.dorukruofan.common.Piece;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
- * @author doruk
+ * @author doruk, ruofan
  *
  */
 public class BetaHantoGame implements HantoGame{
-	HashMap<String, HantoPiece> piecesOnBoard= new HashMap<String, HantoPiece>();
+	Map<MyCoordinate, HantoPiece> piecesOnBoard= new HashMap<MyCoordinate, HantoPiece>();
 	Hashtable<HantoPieceType, Integer> redPieceCounter = new Hashtable<HantoPieceType, Integer>();
 	Hashtable<HantoPieceType, Integer> bluePieceCounter = new Hashtable<HantoPieceType, Integer>();
 	private HantoPlayerColor nextMove;
 	private int moveCounter;
 
-	private HantoCoordinateGrid redButterflyLocation;
-	private HantoCoordinateGrid blueButterflyLocation;
+	private MyCoordinate redButterflyLocation;
+	private MyCoordinate blueButterflyLocation;
 
 	public BetaHantoGame(HantoPlayerColor moveFirst){
-		this.nextMove = moveFirst;
-		this.moveCounter = 0;
+		nextMove = moveFirst;
+		moveCounter = 0;
 		redButterflyLocation = null;
 		blueButterflyLocation = null;
 		redPieceCounter.put(HantoPieceType.BUTTERFLY, 0);
@@ -53,29 +54,31 @@ public class BetaHantoGame implements HantoGame{
 		isConnected(to);
 		coordinateConflictValidation(to);
 		placeButterflyBy4(pieceType);
+		pieceNumberCheck(pieceType);
+		
+		
 		pieceNumberCounter(pieceType);
-
-
 		saveToBoard(to, pieceType);
 		moveCounter ++;
-		
-		if(nextMove == HantoPlayerColor.BLUE)
+		if(nextMove == HantoPlayerColor.BLUE){
 			nextMove = HantoPlayerColor.RED;
-		else 
+		}else{
 			nextMove = HantoPlayerColor.BLUE;
-
+		}
 
 		return checkResult();
 	}
 
 	private void onlyPlacingAllowed(HantoCoordinate from) throws HantoException{
-		if(from != null)
+		if(from != null){
 			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
+		}
 	}
 
 	private void checkSupportedPieces(HantoPieceType pieceType) throws HantoException{
-		if(pieceType != HantoPieceType.BUTTERFLY && pieceType != HantoPieceType.SPARROW)
+		if(pieceType != HantoPieceType.BUTTERFLY && pieceType != HantoPieceType.SPARROW){
 			throw new HantoException(pieceType.getPrintableName() + " is not supported in Beta Hanto");
+		}
 	}
 
 	private void firstMoveValidation(HantoCoordinate to) throws HantoException{
@@ -95,15 +98,12 @@ public class BetaHantoGame implements HantoGame{
 			return;
 		}
 		
-		HantoCoordinateGrid myCoordinate = new HantoCoordinateGrid(to);
-		Collection<HantoCoordinate> neighbors = myCoordinate.getNeighbors();
-
-		for(HantoCoordinate coord: neighbors){
-			if(piecesOnBoard.containsKey(HantoCoordinateGrid.getHashCode(coord))){
-				return;
-			}
+		MyCoordinate myCoordinate = new MyCoordinate(to);
+		Collection<HantoPiece> neighborsPiece = myCoordinate.getNeighborsPiece(this);
+		
+		if(neighborsPiece.size() == 0){
+			throw new HantoException("The piece is not connected with any other pieces on the board");
 		}
-		throw new HantoException("The piece is not connected with any other pieces on the board");
 	}
 
 	private void gameEndsCheck() throws HantoException{
@@ -116,20 +116,20 @@ public class BetaHantoGame implements HantoGame{
 		if(moveCounter == 6 || moveCounter == 7){
 			switch(nextMove){
 			case RED:
-				if(redButterflyLocation == null && pieceType != HantoPieceType.BUTTERFLY)
+				if(redButterflyLocation == null && pieceType != HantoPieceType.BUTTERFLY){
 					throw new HantoException("The butterfly should be placed by the 4th turn");
+				}
 				break;
 			case BLUE:
-				if(blueButterflyLocation == null && pieceType != HantoPieceType.BUTTERFLY)
+				if(blueButterflyLocation == null && pieceType != HantoPieceType.BUTTERFLY){
 					throw new HantoException("The butterfly should be placed by the 4th turn");
+				}
 				break;
 			}
 		}
 	}
 
-	private void pieceNumberCounter(HantoPieceType type) throws HantoException{
-		//TODO separate
-		
+	private void pieceNumberCheck(HantoPieceType type) throws HantoException{
 		if(type == HantoPieceType.BUTTERFLY && 
 				nextMove == HantoPlayerColor.BLUE && bluePieceCounter.get(HantoPieceType.BUTTERFLY) >= 1){
 				throw new HantoException("There can not be more than one butterfly for each color");			
@@ -137,7 +137,10 @@ public class BetaHantoGame implements HantoGame{
 		if(type == HantoPieceType.BUTTERFLY &&
 				nextMove == HantoPlayerColor.RED && redPieceCounter.get(HantoPieceType.BUTTERFLY) >= 1){
 			throw new HantoException("There can not be more than one butterfly for each color");			
+		}
 	}
+	
+	private void pieceNumberCounter(HantoPieceType type){
 		switch(nextMove){
 		case BLUE:
 			bluePieceCounter.put(type, bluePieceCounter.get(type) + 1);
@@ -150,14 +153,14 @@ public class BetaHantoGame implements HantoGame{
 
 	private void saveToBoard(HantoCoordinate to, HantoPieceType pieceType){
 		Piece piece = new Piece(nextMove, pieceType);
-		piecesOnBoard.put(HantoCoordinateGrid.getHashCode(to), piece);
+		piecesOnBoard.put(new MyCoordinate(to), piece);
 		if(pieceType == HantoPieceType.BUTTERFLY){
 			switch(nextMove){
 			case BLUE:
-				blueButterflyLocation = new HantoCoordinateGrid(to);
+				blueButterflyLocation = new MyCoordinate(to);
 				break;
 			case RED:
-				redButterflyLocation = new HantoCoordinateGrid(to);
+				redButterflyLocation = new MyCoordinate(to);
 				break;
 			}
 		}
@@ -166,13 +169,11 @@ public class BetaHantoGame implements HantoGame{
 
 	private MoveResult checkResult(){
 		if(redButterflyLocation != null){
-			Collection<HantoCoordinate> neighbors = redButterflyLocation.getNeighbors();
+			Collection<HantoPiece> neighbors = redButterflyLocation.getNeighborsPiece(this);
 			int enemyNum = 0;
-			for(HantoCoordinate coord: neighbors){
-				String coorHash = HantoCoordinateGrid.getHashCode(coord);
-				if(piecesOnBoard.containsKey(coorHash) && piecesOnBoard.get(coorHash).getColor() == HantoPlayerColor.BLUE){
+			for(HantoPiece piece: neighbors){
+				if(piece.getColor() == HantoPlayerColor.BLUE){
 					enemyNum++;
-					break;
 				}
 			}
 			if(enemyNum == 6){
@@ -181,13 +182,11 @@ public class BetaHantoGame implements HantoGame{
 		}
 
 		if(blueButterflyLocation != null){
-			Collection<HantoCoordinate> neighbors = blueButterflyLocation.getNeighbors();
+			Collection<HantoPiece> neighbors = blueButterflyLocation.getNeighborsPiece(this);
 			int enemyNum = 0;
-			for(HantoCoordinate coord: neighbors){
-				String coorHash = HantoCoordinateGrid.getHashCode(coord);
-				if(piecesOnBoard.containsKey(coorHash) && piecesOnBoard.get(coorHash).getColor() == HantoPlayerColor.RED){
+			for(HantoPiece piece: neighbors){
+				if(piece.getColor() == HantoPlayerColor.RED){
 					enemyNum++;
-					break;
 				}
 			}
 			if(enemyNum == 6){
@@ -204,7 +203,7 @@ public class BetaHantoGame implements HantoGame{
 
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		return piecesOnBoard.get(HantoCoordinateGrid.getHashCode(where));
+		return piecesOnBoard.get(new MyCoordinate(where));
 	}
 
 	@Override

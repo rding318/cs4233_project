@@ -6,6 +6,7 @@ import hanto.common.HantoException;
 import hanto.common.HantoGame;
 import hanto.common.HantoPieceType;
 import hanto.common.MoveResult;
+import hanto.dorukruofan.common.MyCoordinate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,9 +33,9 @@ public class AlphaHantoGameTest{
 	@Before
 	public void setUp() {
 		alphaGame = new AlphaHantoGame();
-		point1 = new HantoCoordinateGrid(0, 1);
-		point2 = new HantoCoordinateGrid(1, 1);
-		origin = new HantoCoordinateGrid(0, 0);
+		point1 = new MyCoordinate(0, 1);
+		point2 = new MyCoordinate(1, 1);
+		origin = new MyCoordinate(0, 0);
 		redNotFirst = true;
 
 	}

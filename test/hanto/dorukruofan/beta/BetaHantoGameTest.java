@@ -226,7 +226,7 @@ public class BetaHantoGameTest
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 0));
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 0));
 	}
-	
+	@Test
 	public void redWin() throws HantoException{
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 0));
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 1));
@@ -248,7 +248,7 @@ public class BetaHantoGameTest
 		
 		assertEquals(result, MoveResult.RED_WINS);
 	}
-	
+	@Test
 	public void blueWin() throws HantoException{
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 0));
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 1));

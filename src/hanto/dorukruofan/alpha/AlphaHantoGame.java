@@ -7,11 +7,13 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.dorukruofan.common.Piece;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class AlphaHantoGame implements HantoGame{
-	HashMap<String, HantoPiece> piecesOnBoard= new HashMap<String, HantoPiece>();
+	Map<String, HantoPiece> piecesOnBoard= new HashMap<String, HantoPiece>();
 	private boolean blueMoves = true;
 	private boolean firstMove = true;
 	
@@ -28,13 +30,15 @@ public class AlphaHantoGame implements HantoGame{
 	}
 	
 	private void onlyPlacingAllowed(HantoCoordinate from) throws HantoException{
-		if(from != null)
+		if(from != null){
 			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
+		}
 	}
 	
 	private void checkPieceIsButterFly(HantoPieceType pieceType) throws HantoException{
-		if(pieceType != HantoPieceType.BUTTERFLY)
+		if(pieceType != HantoPieceType.BUTTERFLY){
 			throw new HantoException("The only piece supported in Alpha is Butterfly");
+		}
 	}
 	
 	private void firstMoveValidation(HantoCoordinate to) throws HantoException{

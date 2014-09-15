@@ -1,4 +1,4 @@
-package hanto.dorukruofan.alpha;
+package hanto.dorukruofan.common;
 
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
