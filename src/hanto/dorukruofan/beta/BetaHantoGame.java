@@ -1,6 +1,12 @@
-/**
- * 
- */
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.dorukruofan.beta;
 
 import hanto.common.HantoCoordinate;
@@ -32,6 +38,10 @@ public class BetaHantoGame implements HantoGame{
 	private MyCoordinate redButterflyLocation;
 	private MyCoordinate blueButterflyLocation;
 
+	/**
+	 * Creates a beta version of Hanto.
+	 * @param moveFirst color of the player who starts first
+	 */
 	public BetaHantoGame(HantoPlayerColor moveFirst){
 		nextMove = moveFirst;
 		moveCounter = 0;
