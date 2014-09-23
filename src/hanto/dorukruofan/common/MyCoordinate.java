@@ -69,36 +69,5 @@ public class MyCoordinate implements HantoCoordinate {
 			return false;
 		}
 	}
-	
-	/**
-	 * Finds all adjacent coordinates of a given coordinate.
-	 * @return collection of HantoCoordinate which contains all 6 adjacent coordinates
-	 * 
-	 */
-	public Collection<HantoCoordinate> getNeighborsLocation(){
-		Collection<HantoCoordinate> neighborsLocation = new LinkedList<HantoCoordinate>();
-		neighborsLocation.add(new MyCoordinate(x, y+1));
-		neighborsLocation.add(new MyCoordinate(x+1, y));
-		neighborsLocation.add(new MyCoordinate(x+1, y-1));
-		neighborsLocation.add(new MyCoordinate(x, y-1));
-		neighborsLocation.add(new MyCoordinate(x-1, y));
-		neighborsLocation.add(new MyCoordinate(x-1, y+1));
-		return neighborsLocation;
-	}
-	
-	/**
-	 * 
-	 * @param game the current Hanto game.
-	 * @return a collection HantoPiece which contains all pieces on board
-	 */
-	public Collection<HantoPiece> getNeighborsPiece(HantoGame game){
-		Collection<HantoPiece> neighborsPiece = new LinkedList<HantoPiece>();
-		for(HantoCoordinate coord: getNeighborsLocation()){
-			HantoPiece piece = game.getPieceAt(coord);
-			if(piece != null){
-				neighborsPiece.add(piece);
-			}
-		}
-		return neighborsPiece;
-	}
+
 }

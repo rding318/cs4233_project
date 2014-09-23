@@ -10,7 +10,6 @@
 package hanto.dorukruofan.beta;
 
 import static org.junit.Assert.*;
-import hanto.HantoGameFactory;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
@@ -19,6 +18,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.common.HantoPieceType;
+import hanto.dorukruofan.HantoGameFactory;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -95,6 +95,7 @@ public class BetaHantoGameTest
 	{
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 0));
 		final HantoPiece p = game.getPieceAt(new TestHantoCoordinate(0, 0));
+	
 		assertEquals(HantoPieceType.BUTTERFLY, p.getType());
 		assertEquals(HantoPlayerColor.BLUE, p.getColor());
 	}

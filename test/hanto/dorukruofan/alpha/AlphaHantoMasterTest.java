@@ -10,7 +10,6 @@
 package hanto.dorukruofan.alpha;
 
 import static org.junit.Assert.*;
-import hanto.HantoGameFactory;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
@@ -19,6 +18,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.common.HantoPieceType;
+import hanto.dorukruofan.HantoGameFactory;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
