@@ -74,6 +74,12 @@ public class Board {
 			break;
 		}
 	}
+		
+	public void movePiece(HantoCoordinate from, HantoCoordinate to){
+		HantoPiece piece = getPieceAt(from);
+		piecesOnBoard.put(new MyCoordinate(to), piece);
+		piecesOnBoard.remove(new MyCoordinate(from));
+	}
 	
 	public boolean hasPieceAt(HantoCoordinate coordinate){
 		if(piecesOnBoard.containsKey(new MyCoordinate(coordinate))){

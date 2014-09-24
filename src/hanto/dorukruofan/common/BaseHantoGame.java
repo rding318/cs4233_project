@@ -8,6 +8,10 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Map;
+
 public abstract class BaseHantoGame implements HantoGame {
 	protected HantoPlayerColor nextMove;
 	protected Board board;
@@ -16,11 +20,29 @@ public abstract class BaseHantoGame implements HantoGame {
 	protected MyCoordinate redButterflyLocation;
 	protected MyCoordinate blueButterflyLocation;
 	
-	protected BaseHantoGame(){
+	protected Map<HantoPieceType, Integer> MAX_TYPE_NUM;
+	protected int MAX_GAME_TURNS;
+	
+	protected BaseHantoGame(HantoPlayerColor moveFirst){
 		board = new Board();
 		moveCounter = 0;
 		redButterflyLocation = null;
 		blueButterflyLocation = null;
+		nextMove = moveFirst;
+		
+		MAX_TYPE_NUM = new Hashtable<HantoPieceType, Integer> ();
+		MAX_TYPE_NUM.put(HantoPieceType.BUTTERFLY, 1);
+		MAX_TYPE_NUM.put(HantoPieceType.CRAB, 0);
+		MAX_TYPE_NUM.put(HantoPieceType.CRANE, 0);
+		MAX_TYPE_NUM.put(HantoPieceType.DOVE, 0);
+		MAX_TYPE_NUM.put(HantoPieceType.HORSE, 0);
+		MAX_TYPE_NUM.put(HantoPieceType.SPARROW, 0);
+	}
+	
+	protected void gameEndsCheck() throws HantoException{
+		if(moveCounter >= MAX_GAME_TURNS * 2){
+			throw new HantoException("The game ends after 6 turns");
+		}
 	}
 	
 	protected void firstMoveValidation(HantoCoordinate to) throws HantoException{
@@ -57,13 +79,8 @@ public abstract class BaseHantoGame implements HantoGame {
 	
 	//TODO add check for sparrow
 	protected void pieceNumberCheck(HantoPieceType type) throws HantoException{
-		if(type == HantoPieceType.BUTTERFLY && 
-				nextMove == HantoPlayerColor.BLUE && board.getPieceNumber(HantoPlayerColor.BLUE, HantoPieceType.BUTTERFLY) >= 1){
-				throw new HantoException("There can not be more than one butterfly for each color");			
-		}
-		if(type == HantoPieceType.BUTTERFLY &&
-				nextMove == HantoPlayerColor.RED && board.getPieceNumber(HantoPlayerColor.RED, HantoPieceType.BUTTERFLY) >= 1){
-			throw new HantoException("There can not be more than one butterfly for each color");			
+		if(board.getPieceNumber(nextMove, type) >= MAX_TYPE_NUM.get(type)){
+			throw new HantoException("There can be no more than " + MAX_TYPE_NUM.get(type) + " " + type.getSymbol() + " for each color");
 		}
 	}
 
@@ -79,6 +96,18 @@ public abstract class BaseHantoGame implements HantoGame {
 				redButterflyLocation = new MyCoordinate(to);
 				break;
 			}
+		}
+	}
+	
+	protected void isConnected(HantoCoordinate to) throws HantoException{
+		if(moveCounter == 0) {
+			return;
+		}
+		
+		Collection<HantoPiece> neighborsPiece = board.getAdjacentPieces(to);
+		
+		if(neighborsPiece.size() == 0){
+			throw new HantoException("The piece is not connected with any other pieces on the board");
 		}
 	}
 	

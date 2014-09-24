@@ -33,8 +33,10 @@ public class BetaHantoGame extends BaseHantoGame{
 	 * @param moveFirst color of the player who starts first
 	 */
 	public BetaHantoGame(HantoPlayerColor moveFirst){
-		super();
-		nextMove = moveFirst;
+		super(moveFirst);
+
+		MAX_TYPE_NUM.put(HantoPieceType.SPARROW, 5);
+		MAX_GAME_TURNS = 6;
 	}
 
 	@Override
@@ -42,7 +44,6 @@ public class BetaHantoGame extends BaseHantoGame{
 			HantoCoordinate to) throws HantoException {
 		gameEndsCheck();
 		onlyPlacingAllowed(from);
-		checkSupportedPieces(pieceType);
 		firstMoveValidation(to);
 		isConnected(to);
 		coordinateConflictValidation(to);
@@ -60,31 +61,7 @@ public class BetaHantoGame extends BaseHantoGame{
 			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
 		}
 	}
-
-	private void checkSupportedPieces(HantoPieceType pieceType) throws HantoException{
-		if(pieceType != HantoPieceType.BUTTERFLY && pieceType != HantoPieceType.SPARROW){
-			throw new HantoException(pieceType.getPrintableName() + " is not supported in Beta Hanto");
-		}
-	}
-
-	private void isConnected(HantoCoordinate to) throws HantoException{
-		if(moveCounter == 0) {
-			return;
-		}
-		
-		Collection<HantoPiece> neighborsPiece = board.getAdjacentPieces(to);
-		
-		if(neighborsPiece.size() == 0){
-			throw new HantoException("The piece is not connected with any other pieces on the board");
-		}
-	}
-
-	private void gameEndsCheck() throws HantoException{
-		if(moveCounter >= 12){
-			throw new HantoException("The game ends after 6 turns");
-		}
-	}
-		
+			
 	
 	protected MoveResult checkResult(){
 		if(redButterflyLocation != null){
