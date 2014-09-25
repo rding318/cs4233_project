@@ -15,6 +15,7 @@ import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
 import hanto.dorukruofan.alpha.AlphaHantoGame;
 import hanto.dorukruofan.beta.BetaHantoGame;
+import hanto.dorukruofan.gamma.GammaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -68,6 +69,9 @@ public class HantoGameFactory
 			break;
 		case BETA_HANTO:
 			game = new BetaHantoGame(movesFirst);
+			break;
+		case GAMMA_HANTO:
+			game = new GammaHantoGame(movesFirst);
 			break;
 		}
 		return game;

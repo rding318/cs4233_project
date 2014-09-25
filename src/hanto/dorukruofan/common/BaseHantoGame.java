@@ -76,8 +76,6 @@ public abstract class BaseHantoGame implements HantoGame {
 		}
 	}
 	
-	
-	//TODO add check for sparrow
 	protected void pieceNumberCheck(HantoPieceType type) throws HantoException{
 		if(board.getPieceNumber(nextMove, type) >= MAX_TYPE_NUM.get(type)){
 			throw new HantoException("There can be no more than " + MAX_TYPE_NUM.get(type) + " " + type.getSymbol() + " for each color");
@@ -120,8 +118,27 @@ public abstract class BaseHantoGame implements HantoGame {
 		}
 	}
 	
-	protected abstract MoveResult checkResult();
-	
+	protected MoveResult checkResult(){
+		if(redButterflyLocation != null){
+			Collection<HantoPiece> neighbors = board.getAdjacentPieces(redButterflyLocation);
+			if(neighbors.size() == 6){
+				return MoveResult.BLUE_WINS;
+			}
+		}
+
+		if(blueButterflyLocation != null){
+			Collection<HantoPiece> neighbors = board.getAdjacentPieces(blueButterflyLocation);
+			if(neighbors.size() == 6){
+				return MoveResult.RED_WINS;
+			}
+		}
+		
+		if(moveCounter < MAX_GAME_TURNS * 2){
+			return MoveResult.OK;
+		}else{
+			return MoveResult.DRAW;
+		}
+	}
 	
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {

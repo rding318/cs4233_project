@@ -28,18 +28,30 @@ public class GammaHantoGame extends BaseHantoGame{
 			firstMoveValidation(to);
 			pieceNumberCheck(pieceType);
 			onlyConnectedToTeamColor(to);
+			saveToBoard(to, pieceType);
 		}else{
 			if(getPieceAt(from) == null){
 				throw new HantoException("There is no piece at the specified from location");
+			}else{
+				if(getPieceAt(from).getColor() != nextMove){
+					throw new HantoException("You are not allowed to move opponent's pieces");
+				}
+				onlyWalk(from, to);
 			}
+			board.movePiece(from, to);
 		}
 		
-		
-		saveToBoard(to, pieceType);
+	
 		incrementMove();
 		
 		
 		return null;
+	}
+	
+	private void onlyWalk(HantoCoordinate from, HantoCoordinate to) throws HantoException{
+		if(!board.getAdjacentLocations(from).contains(to)){
+			throw new HantoException("Unreachable distance for walk");
+		}
 	}
 	
 	public void onlyConnectedToTeamColor(HantoCoordinate to) throws HantoException{
@@ -48,12 +60,6 @@ public class GammaHantoGame extends BaseHantoGame{
 				throw new HantoException("Piece can not be put adjacent to opponent's pieces");
 			}
 		}
-	}
-
-	@Override
-	protected MoveResult checkResult() {
-
-		return null;
 	}
 
 }

@@ -61,42 +61,6 @@ public class BetaHantoGame extends BaseHantoGame{
 			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
 		}
 	}
-			
-	
-	protected MoveResult checkResult(){
-		if(redButterflyLocation != null){
-			Collection<HantoPiece> neighbors = board.getAdjacentPieces(redButterflyLocation);
-			int enemyNum = 0;
-			for(HantoPiece piece: neighbors){
-				if(piece.getColor() == HantoPlayerColor.BLUE){
-					enemyNum++;
-				}
-			}
-			if(enemyNum == 6){
-				return MoveResult.BLUE_WINS;
-			}
-		}
-
-		if(blueButterflyLocation != null){
-			Collection<HantoPiece> neighbors = board.getAdjacentPieces(blueButterflyLocation);
-			int enemyNum = 0;
-			for(HantoPiece piece: neighbors){
-				if(piece.getColor() == HantoPlayerColor.RED){
-					enemyNum++;
-				}
-			}
-			if(enemyNum == 6){
-				return MoveResult.RED_WINS;
-			}
-		}
-		
-		if(moveCounter < 12){
-			return MoveResult.OK;
-		}else{
-			return MoveResult.DRAW;
-		}
-	}
-
 
 }
 
