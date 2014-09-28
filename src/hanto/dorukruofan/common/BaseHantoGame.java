@@ -41,7 +41,7 @@ public abstract class BaseHantoGame implements HantoGame {
 	
 	protected void gameEndsCheck() throws HantoException{
 		if(moveCounter >= MAX_GAME_TURNS * 2){
-			throw new HantoException("The game ends after 6 turns");
+			throw new HantoException("The game ends after " + MAX_GAME_TURNS + " turns");
 		}
 	}
 	
@@ -78,7 +78,7 @@ public abstract class BaseHantoGame implements HantoGame {
 	
 	protected void pieceNumberCheck(HantoPieceType type) throws HantoException{
 		if(board.getPieceNumber(nextMove, type) >= MAX_TYPE_NUM.get(type)){
-			throw new HantoException("There can be no more than " + MAX_TYPE_NUM.get(type) + " " + type.getSymbol() + " for each color");
+			throw new HantoException("There can be no more than " + MAX_TYPE_NUM.get(type) + " " + type.getPrintableName() + " for each color");
 		}
 	}
 
