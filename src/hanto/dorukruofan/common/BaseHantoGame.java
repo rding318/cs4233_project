@@ -13,7 +13,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public abstract class BaseHantoGame implements HantoGame {
-	protected HantoPlayerColor nextMove;
+	protected HantoPlayerColor nextMove, moveFirst;
 	protected Board board;
 	protected int moveCounter;
 
@@ -29,6 +29,7 @@ public abstract class BaseHantoGame implements HantoGame {
 		redButterflyLocation = null;
 		blueButterflyLocation = null;
 		nextMove = moveFirst;
+		moveFirst = this.moveFirst;
 		
 		MAX_TYPE_NUM = new Hashtable<HantoPieceType, Integer> ();
 		MAX_TYPE_NUM.put(HantoPieceType.BUTTERFLY, 1);

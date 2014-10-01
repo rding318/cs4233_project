@@ -32,15 +32,12 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame{
 
 	@Override
 	public void setTurnNumber(int turnNumber) {
-		moveCounter = turnNumber * 2;
+		moveCounter = (turnNumber - 1)*2 + (nextMove == moveFirst? 0:1);
 	}
 
 	@Override
 	public void setPlayerMoving(HantoPlayerColor player) {
-		if(nextMove != player){
-			nextMove = player;
-			moveCounter ++;
-		}
+		nextMove = player;
 	}
 	
 

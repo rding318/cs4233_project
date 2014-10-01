@@ -33,5 +33,5 @@ public class CommonTest
 		assertEquals(coord1.distance(coord3), 4);
 		assertEquals(coord1.distance(coord4), 5);
 	}
-	
+
 }
