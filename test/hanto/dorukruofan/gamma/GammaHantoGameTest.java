@@ -126,7 +126,7 @@ public class GammaHantoGameTest
 		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[1];
 		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 0));
 		game.initializeBoard(pieces);
-		game.setTurnNumber(3);
+		game.setTurnNumber(4);
 		game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 1));
 	}
 	
@@ -136,7 +136,7 @@ public class GammaHantoGameTest
 		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[1];
 		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 0));
 		game.initializeBoard(pieces);
-		game.setTurnNumber(3);
+		game.setTurnNumber(4);
 		game.setPlayerMoving(RED);
 		game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 1));
 	}
@@ -298,7 +298,7 @@ public class GammaHantoGameTest
 		pieces[1] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 1));
 
 		game.initializeBoard(pieces);
-		game.setTurnNumber(19);
+		game.setTurnNumber(20);
 		game.setPlayerMoving(RED);
 		MoveResult result = game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 2));
 		assertEquals(MoveResult.DRAW, result);
@@ -307,7 +307,7 @@ public class GammaHantoGameTest
 
 	@Test(expected = HantoException.class)
 	public void GameEnds21TurnsAttempt() throws HantoException{
-		game.setTurnNumber(20);
+		game.setTurnNumber(21);
 		game.makeMove(null, null, null);
 	}
 	
