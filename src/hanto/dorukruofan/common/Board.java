@@ -27,7 +27,7 @@ public class Board {
 	}
 	
 	public Board(Board copyBoard){
-		piecesOnBoard = copyBoard.piecesOnBoard;
+		piecesOnBoard = new HashMap<MyCoordinate, HantoPiece>(copyBoard.piecesOnBoard);
 		size = copyBoard.size;
 	}
 	
@@ -121,5 +121,14 @@ public class Board {
 	
 	public int size(){
 		return size;
+	}
+	
+	public String getPrintableBoard(){
+		String result = new String();
+		for(MyCoordinate coord: piecesOnBoard.keySet()){
+			result.concat(coord.toString() + piecesOnBoard.get(coord).getColor()+piecesOnBoard.get(coord).getType()+"\n");
+		}
+		result.concat("\n");
+		return result;
 	}
 }

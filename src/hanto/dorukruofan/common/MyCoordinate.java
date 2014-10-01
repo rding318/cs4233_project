@@ -71,4 +71,8 @@ public class MyCoordinate implements HantoCoordinate {
 
 		return (Math.abs(x - coord.getX()) + Math.abs(y - coord.getY()) + Math.abs(z1 - z2)) / 2;
 	}
+	
+	public String toString(){
+		return "("+x+","+y+")";
+	}
 }

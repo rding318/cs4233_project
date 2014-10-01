@@ -146,20 +146,33 @@ public abstract class BaseHantoGame implements HantoGame {
 	}
 	
 	protected MoveResult checkResult(){
+		int enemyNum;
+		Collection<HantoPiece> neighbors ;
+
 		if(redButterflyLocation != null){
-			Collection<HantoPiece> neighbors = board.getAdjacentPieces(redButterflyLocation);
-			if(neighbors.size() == 6){
+			neighbors = board.getAdjacentPieces(redButterflyLocation);
+			enemyNum = 0;
+			for(HantoPiece piece: neighbors){
+				if(piece.getColor() == HantoPlayerColor.BLUE){
+					enemyNum++;
+				}
+			}
+			if(enemyNum == 6){
 				return MoveResult.BLUE_WINS;
 			}
-			System.out.println(neighbors.size());
 		}
 
 		if(blueButterflyLocation != null){
-			Collection<HantoPiece> neighbors = board.getAdjacentPieces(blueButterflyLocation);
-			if(neighbors.size() == 6){
+			neighbors = board.getAdjacentPieces(blueButterflyLocation);
+			enemyNum = 0;
+			for(HantoPiece piece: neighbors){
+				if(piece.getColor() == HantoPlayerColor.RED){
+					enemyNum++;
+				}
+			}
+			if(enemyNum == 6){
 				return MoveResult.RED_WINS;
 			}
-			System.out.println(neighbors.size());
 		}
 		
 		if(moveCounter < MAX_GAME_TURNS * 2){
@@ -178,12 +191,6 @@ public abstract class BaseHantoGame implements HantoGame {
 			}
 		}
 	}
-		
-	private void onlyWalk(HantoCoordinate from, HantoCoordinate to) throws HantoException{
-		if(!board.getAdjacentLocations(from).contains(new MyCoordinate(to))){
-			throw new HantoException("Unreachable distance for walk");
-		}
-	}
 	
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
@@ -192,8 +199,7 @@ public abstract class BaseHantoGame implements HantoGame {
 
 	@Override
 	public String getPrintableBoard() {
-		// TODO Auto-generated method stub
-		return null;
+		return board.getPrintableBoard();
 	}
 	
 	protected abstract MoveValidator getMoveValidator(HantoPieceType type);

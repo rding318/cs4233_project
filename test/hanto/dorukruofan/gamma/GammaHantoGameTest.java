@@ -86,7 +86,7 @@ public class GammaHantoGameTest
 	public void setup()
 	{
 		// By default, blue moves first.
-		game = factory.makeTestHantoGame(HantoGameID.GAMMA_HANTO);
+		game = factory.makeHantoTestGame(HantoGameID.GAMMA_HANTO);
 	}
 	
 	@Test
@@ -194,7 +194,7 @@ public class GammaHantoGameTest
 	}
 	
 	@Test
-	public void blueMovesFirstAndWins() throws HantoException
+	public void redWins() throws HantoException
 	{
 		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[7];
 		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.BUTTERFLY, new TestHantoCoordinate(0, 0));
@@ -207,8 +207,26 @@ public class GammaHantoGameTest
 		game.initializeBoard(pieces);
 		game.setTurnNumber(10);
 		game.setPlayerMoving(RED);
-		MoveResult result =game.makeMove(SPARROW, makeCoordinate(1, -2), makeCoordinate(2, -2));
+		MoveResult result =game.makeMove(SPARROW, makeCoordinate(1, -2), makeCoordinate(0, -1));
 		assertEquals(MoveResult.RED_WINS, result);
+	}
+	
+	@Test
+	public void blueWins() throws HantoException
+	{
+		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[7];
+		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.BUTTERFLY, new TestHantoCoordinate(0, 0));
+		pieces[1] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.BUTTERFLY, new TestHantoCoordinate(-1, 0));
+		pieces[2] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(-1, 1));
+		pieces[3] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 1));
+		pieces[4] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(1, 0));
+		pieces[5] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(1, -1));
+		pieces[6] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(1, -2));
+		game.initializeBoard(pieces);
+		game.setTurnNumber(10);
+		game.setPlayerMoving(BLUE);
+		MoveResult result =game.makeMove(SPARROW, makeCoordinate(1, -2), makeCoordinate(0, -1));
+		assertEquals(MoveResult.BLUE_WINS, result);
 	}
 	
 	@Test(expected=HantoException.class)
