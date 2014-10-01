@@ -10,11 +10,6 @@
 package hanto.dorukruofan.common;
 
 import hanto.common.HantoCoordinate;
-import hanto.common.HantoGame;
-import hanto.common.HantoPiece;
-
-import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  * 
@@ -69,5 +64,11 @@ public class MyCoordinate implements HantoCoordinate {
 			return false;
 		}
 	}
+	
+	public int distance(MyCoordinate coord){
+		int z1 = 0 - x - y;
+		int z2 = 0 - coord.getX() - coord.getY();
 
+		return (Math.abs(x - coord.getX()) + Math.abs(y - coord.getY()) + Math.abs(z1 - z2)) / 2;
+	}
 }

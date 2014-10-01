@@ -16,12 +16,19 @@ public class Board {
 	private Map<MyCoordinate, HantoPiece> piecesOnBoard= new HashMap<MyCoordinate, HantoPiece>();
 	private Hashtable<HantoPieceType, Integer> redPieceCounter = new Hashtable<HantoPieceType, Integer>();
 	private Hashtable<HantoPieceType, Integer> bluePieceCounter = new Hashtable<HantoPieceType, Integer>();
+	private int size;
 	
 	public Board(){
 		for(HantoPieceType type: HantoPieceType.values()){
 			redPieceCounter.put(type, 0);
 			bluePieceCounter.put(type, 0);
 		}
+		size = 0;
+	}
+	
+	public Board(Board copyBoard){
+		piecesOnBoard = copyBoard.piecesOnBoard;
+		size = copyBoard.size;
 	}
 	
 	/**
@@ -29,10 +36,10 @@ public class Board {
 	 * @return collection of HantoCoordinate which contains all 6 adjacent coordinates
 	 * 
 	 */
-	public Collection<HantoCoordinate> getAdjacentLocations(HantoCoordinate coordinate){
+	public Collection<MyCoordinate> getAdjacentLocations(HantoCoordinate coordinate){
 		int x = coordinate.getX();
 		int y = coordinate.getY();
-		Collection<HantoCoordinate> neighborsLocation = new LinkedList<HantoCoordinate>();
+		Collection<MyCoordinate> neighborsLocation = new LinkedList<MyCoordinate>();
 		neighborsLocation.add(new MyCoordinate(x, y+1));
 		neighborsLocation.add(new MyCoordinate(x+1, y));
 		neighborsLocation.add(new MyCoordinate(x+1, y-1));
@@ -58,6 +65,17 @@ public class Board {
 		return neighborsPiece;
 	}
 	
+	public Collection<MyCoordinate> getAdjacentOccupiedLocation(MyCoordinate coordinate){
+		Collection<MyCoordinate> neighbors = new LinkedList<MyCoordinate>();
+		for(MyCoordinate coord: getAdjacentLocations(coordinate)){
+			HantoPiece piece = piecesOnBoard.get(coord);
+			if(piece != null){
+				neighbors.add(coord);
+			}
+		}
+		return neighbors;
+	}
+	
 	public HantoPiece getPieceAt(HantoCoordinate coordiante){
 		return piecesOnBoard.get(new MyCoordinate(coordiante));
 	}
@@ -73,6 +91,7 @@ public class Board {
 			redPieceCounter.put(piece.getType(), redPieceCounter.get(piece.getType()) + 1);
 			break;
 		}
+		size++;
 	}
 		
 	public void movePiece(HantoCoordinate from, HantoCoordinate to){
@@ -98,5 +117,9 @@ public class Board {
 		default:
 			return -1;
 		}
+	}
+	
+	public int size(){
+		return size;
 	}
 }

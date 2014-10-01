@@ -17,6 +17,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.dorukruofan.common.BaseHantoGame;
 import hanto.dorukruofan.common.Board;
+import hanto.dorukruofan.common.MoveValidator;
 import hanto.dorukruofan.common.MyCoordinate;
 import hanto.dorukruofan.common.Piece;
 
@@ -60,6 +61,12 @@ public class BetaHantoGame extends BaseHantoGame{
 		if(from != null){
 			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
 		}
+	}
+
+	@Override
+	protected MoveValidator getMoveValidator(HantoPieceType type) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

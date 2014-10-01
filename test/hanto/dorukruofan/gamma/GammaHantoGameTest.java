@@ -86,7 +86,7 @@ public class GammaHantoGameTest
 	public void setup()
 	{
 		// By default, blue moves first.
-		game = (HantoTestGame) factory.makeTestHantoGame(HantoGameID.GAMMA_HANTO);
+		game = factory.makeTestHantoGame(HantoGameID.GAMMA_HANTO);
 	}
 	
 	@Test
@@ -102,7 +102,7 @@ public class GammaHantoGameTest
 	@Test
 	public void redMovesFirstAndPlacesButterfly() throws HantoException
 	{
-		game = (HantoTestGame) factory.makeHantoTestGame(HantoGameID.GAMMA_HANTO, RED);
+		game =  factory.makeHantoTestGame(HantoGameID.GAMMA_HANTO, RED);
 		final MoveResult mr = game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		assertEquals(OK, mr);
 		HantoPiece p = game.getPieceAt(makeCoordinate(0, 0));
@@ -207,7 +207,7 @@ public class GammaHantoGameTest
 		game.initializeBoard(pieces);
 		game.setTurnNumber(10);
 		game.setPlayerMoving(RED);
-		MoveResult result =game.makeMove(SPARROW, makeCoordinate(1, -2), makeCoordinate(0, -1));
+		MoveResult result =game.makeMove(SPARROW, makeCoordinate(1, -2), makeCoordinate(2, -2));
 		assertEquals(MoveResult.RED_WINS, result);
 	}
 	

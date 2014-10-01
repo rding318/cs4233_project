@@ -39,6 +39,33 @@ public abstract class BaseHantoGame implements HantoGame {
 		MAX_TYPE_NUM.put(HantoPieceType.SPARROW, 0);
 	}
 	
+
+	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
+			HantoCoordinate to) throws HantoException {
+		gameEndsCheck();
+		placeButterflyBy4(pieceType);
+		
+		if(from == null){
+			putValidation(pieceType, to);
+			saveToBoard(to, pieceType);
+		}else{
+			MoveValidator validator = getMoveValidator(pieceType);
+			validator.moveCheck(board, new MyCoordinate(from), new MyCoordinate(to), pieceType, nextMove);
+			board.movePiece(from, to);
+		}
+		incrementMove();
+		
+		return checkResult();
+	}
+	
+	protected void putValidation(HantoPieceType pieceType, HantoCoordinate to) throws HantoException{
+		firstMoveValidation(to);
+		pieceNumberCheck(pieceType);
+		isConnected(to);
+		coordinateConflictValidation(to);
+		onlyConnectedToTeamColor(to);
+	}
+	
 	protected void gameEndsCheck() throws HantoException{
 		if(moveCounter >= MAX_GAME_TURNS * 2){
 			throw new HantoException("The game ends after " + MAX_GAME_TURNS + " turns");
@@ -124,6 +151,7 @@ public abstract class BaseHantoGame implements HantoGame {
 			if(neighbors.size() == 6){
 				return MoveResult.BLUE_WINS;
 			}
+			System.out.println(neighbors.size());
 		}
 
 		if(blueButterflyLocation != null){
@@ -131,12 +159,29 @@ public abstract class BaseHantoGame implements HantoGame {
 			if(neighbors.size() == 6){
 				return MoveResult.RED_WINS;
 			}
+			System.out.println(neighbors.size());
 		}
 		
 		if(moveCounter < MAX_GAME_TURNS * 2){
 			return MoveResult.OK;
 		}else{
 			return MoveResult.DRAW;
+		}
+	}
+	
+	public void onlyConnectedToTeamColor(HantoCoordinate to) throws HantoException{
+		if(moveCounter < 2)
+			return;
+		for(HantoPiece piece: board.getAdjacentPieces(to)){
+			if(piece.getColor() != nextMove){
+				throw new HantoException("Piece can not be put adjacent to opponent's pieces");
+			}
+		}
+	}
+		
+	private void onlyWalk(HantoCoordinate from, HantoCoordinate to) throws HantoException{
+		if(!board.getAdjacentLocations(from).contains(new MyCoordinate(to))){
+			throw new HantoException("Unreachable distance for walk");
 		}
 	}
 	
@@ -150,5 +195,7 @@ public abstract class BaseHantoGame implements HantoGame {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	protected abstract MoveValidator getMoveValidator(HantoPieceType type);
 
 }
