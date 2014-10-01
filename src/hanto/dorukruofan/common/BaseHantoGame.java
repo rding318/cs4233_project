@@ -45,7 +45,15 @@ public abstract class BaseHantoGame implements HantoGame {
 			HantoCoordinate to) throws HantoException {
 		gameEndsCheck();
 		placeButterflyBy4(pieceType);
+		makeMoveCheck(pieceType, from, to);
 		
+		incrementMove();
+		
+		return checkResult();
+	}
+	
+	protected void makeMoveCheck(HantoPieceType pieceType, HantoCoordinate from,
+			HantoCoordinate to) throws HantoException{
 		if(from == null){
 			putValidation(pieceType, to);
 			saveToBoard(to, pieceType);
@@ -54,9 +62,6 @@ public abstract class BaseHantoGame implements HantoGame {
 			validator.moveCheck(board, new MyCoordinate(from), new MyCoordinate(to), pieceType, nextMove);
 			board.movePiece(from, to);
 		}
-		incrementMove();
-		
-		return checkResult();
 	}
 	
 	protected void putValidation(HantoPieceType pieceType, HantoCoordinate to) throws HantoException{
