@@ -9,6 +9,8 @@
  *******************************************************************************/
 package hanto.dorukruofan.beta;
 
+import java.util.Collection;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
@@ -16,12 +18,9 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.dorukruofan.common.BaseHantoGame;
-import hanto.dorukruofan.common.Board;
 import hanto.dorukruofan.common.MoveValidator;
 import hanto.dorukruofan.common.MyCoordinate;
-import hanto.dorukruofan.common.Piece;
-
-import java.util.Collection;
+import hanto.dorukruofan.common.WalkValidator;
 
 /**
  * @author doruk, ruofan
@@ -40,33 +39,50 @@ public class BetaHantoGame extends BaseHantoGame{
 		MAX_GAME_TURNS = 6;
 	}
 
-	@Override
-	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
-			HantoCoordinate to) throws HantoException {
-		gameEndsCheck();
-		onlyPlacingAllowed(from);
-		firstMoveValidation(to);
-		isConnected(to);
-		coordinateConflictValidation(to);
-		placeButterflyBy4(pieceType);
-		pieceNumberCheck(pieceType);
-		
-		saveToBoard(to, pieceType);
-		incrementMove();
-
-		return checkResult();
-	}
-
-	private void onlyPlacingAllowed(HantoCoordinate from) throws HantoException{
+	protected void makeMoveCheck(HantoPieceType pieceType, HantoCoordinate from,
+			HantoCoordinate to) throws HantoException{
 		if(from != null){
 			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
 		}
+		
+		putValidation(pieceType, to);
+		saveToBoard(to, pieceType);
 	}
 
 	@Override
 	protected MoveValidator getMoveValidator(HantoPieceType type) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected void putValidation(HantoPieceType pieceType, HantoCoordinate to) throws HantoException{
+		firstMoveValidation(to);
+		pieceNumberCheck(pieceType);
+		isConnected(to);
+		coordinateConflictValidation(to);
+	}
+	
+	protected MoveResult checkResult(){
+		Collection<HantoPiece> neighbors ;
+
+		if(redButterflyLocation != null){
+			neighbors = board.getAdjacentPieces(redButterflyLocation);
+			if(neighbors.size() == 6){
+				return MoveResult.BLUE_WINS;
+			}
+		}
+
+		if(blueButterflyLocation != null){
+			neighbors = board.getAdjacentPieces(blueButterflyLocation);
+			if(neighbors.size() == 6){
+				return MoveResult.RED_WINS;
+			}
+		}
+		
+		if(moveCounter < MAX_GAME_TURNS * 2){
+			return MoveResult.OK;
+		}else{
+			return MoveResult.DRAW;
+		}
 	}
 
 }
