@@ -1,7 +1,15 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.dorukruofan.common;
 
 import hanto.common.HantoCoordinate;
-import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
@@ -12,12 +20,19 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * @author Doruk, Ruofan
+ * The board class
+ */
 public class Board {
 	private Map<MyCoordinate, HantoPiece> piecesOnBoard;
 	private Hashtable<HantoPieceType, Integer> redPieceCounter = new Hashtable<HantoPieceType, Integer>();
 	private Hashtable<HantoPieceType, Integer> bluePieceCounter = new Hashtable<HantoPieceType, Integer>();
 	private int size;
 	
+	/**
+	 * Constructor for Board.
+	 */
 	public Board(){
 		piecesOnBoard = new HashMap<MyCoordinate, HantoPiece>();
 		for(HantoPieceType type: HantoPieceType.values()){
@@ -27,6 +42,10 @@ public class Board {
 		size = 0;
 	}
 	
+	/**
+	 * Constructor for Board.
+	 * @param copyBoard Board
+	 */
 	public Board(Board copyBoard){
 		piecesOnBoard = new HashMap<MyCoordinate, HantoPiece>(copyBoard.piecesOnBoard);
 		size = copyBoard.size;
@@ -38,9 +57,10 @@ public class Board {
 	
 	/**
 	 * Finds all adjacent coordinates of a given coordinate.
-	 * @return collection of HantoCoordinate which contains all 6 adjacent coordinates
+	
 	 * 
-	 */
+	 * @param coordinate HantoCoordinate
+	 * @return collection of HantoCoordinate which contains all 6 adjacent coordinates */
 	public Collection<MyCoordinate> getAdjacentLocations(HantoCoordinate coordinate){
 		int x = coordinate.getX();
 		int y = coordinate.getY();
@@ -56,9 +76,10 @@ public class Board {
 	
 	/**
 	 * 
-	 * @param game the current Hanto game.
-	 * @return a collection HantoPiece which contains all pieces on board
-	 */
+	
+	
+	 * @param coordinate HantoCoordinate
+	 * @return a collection HantoPiece which contains all pieces on board */
 	public Collection<HantoPiece> getAdjacentPieces(HantoCoordinate coordinate){
 		Collection<HantoPiece> neighborsPiece = new LinkedList<HantoPiece>();
 		for(HantoCoordinate coord: getAdjacentLocations(coordinate)){
@@ -70,6 +91,11 @@ public class Board {
 		return neighborsPiece;
 	}
 	
+	/**
+	 * Method getAdjacentOccupiedLocation.
+	 * @param coordinate MyCoordinate
+	 * @return Collection<MyCoordinate>
+	 */
 	public Collection<MyCoordinate> getAdjacentOccupiedLocation(MyCoordinate coordinate){
 		Collection<MyCoordinate> neighbors = new LinkedList<MyCoordinate>();
 		for(MyCoordinate coord: getAdjacentLocations(coordinate)){
@@ -81,10 +107,20 @@ public class Board {
 		return neighbors;
 	}
 	
+	/**
+	 * Method getPieceAt.
+	 * @param coordiante HantoCoordinate
+	 * @return HantoPiece
+	 */
 	public HantoPiece getPieceAt(HantoCoordinate coordiante){
 		return piecesOnBoard.get(new MyCoordinate(coordiante));
 	}
 	
+	/**
+	 * Method putPieceAt.
+	 * @param piece HantoPiece
+	 * @param coordinate HantoCoordinate
+	 */
 	public void putPieceAt(HantoPiece piece, HantoCoordinate coordinate){
 		piecesOnBoard.put(new MyCoordinate(coordinate), piece);
 		
@@ -99,20 +135,32 @@ public class Board {
 		size++;
 	}
 		
+	/**
+	 * Method movePiece.
+	 * @param from HantoCoordinate
+	 * @param to HantoCoordinate
+	 */
 	public void movePiece(HantoCoordinate from, HantoCoordinate to){
 		HantoPiece piece = getPieceAt(from);
 		piecesOnBoard.put(new MyCoordinate(to), piece);
 		piecesOnBoard.remove(new MyCoordinate(from));
 	}
 	
+	/**
+	 * Method hasPieceAt.
+	 * @param coordinate HantoCoordinate
+	 * @return boolean
+	 */
 	public boolean hasPieceAt(HantoCoordinate coordinate){
-		if(piecesOnBoard.containsKey(new MyCoordinate(coordinate))){
-			return true;
-		}else{
-			return false;
-		}
+		return piecesOnBoard.containsKey(new MyCoordinate(coordinate)); 
 	}
 	
+	/**
+	 * Method getPieceNumber.
+	 * @param color HantoPlayerColor
+	 * @param type HantoPieceType
+	 * @return int
+	 */
 	public int getPieceNumber(HantoPlayerColor color, HantoPieceType type){
 		switch (color){
 		case BLUE:
@@ -124,10 +172,18 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Method size.
+	 * @return int
+	 */
 	public int size(){
 		return size;
 	}
 	
+	/**
+	 * Get the pieces information on board in a String
+	 * @return a string representing the board
+	 */
 	public String getPrintableBoard(){
 		String result = new String();
 		for(MyCoordinate coord: piecesOnBoard.keySet()){

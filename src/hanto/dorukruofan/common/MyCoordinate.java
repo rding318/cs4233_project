@@ -65,6 +65,11 @@ public class MyCoordinate implements HantoCoordinate {
 		}
 	}
 	
+	/**
+	 * Get the distance to the coordinate.
+	 * @param coord the given MyCoordinate
+	 * @return int the distance from this to the coord
+	 */
 	public int distance(MyCoordinate coord){
 		int z1 = 0 - x - y;
 		int z2 = 0 - coord.getX() - coord.getY();
