@@ -27,7 +27,7 @@ import hanto.dorukruofan.gamma.GammaHantoGame;
  */
 public class HantoGameFactory
 {
-	private static final HantoGameFactory _instance = new HantoGameFactory();
+	private static final HantoGameFactory INSTANCE = new HantoGameFactory();
 	
 	/**
 	 * Default private descriptor.
@@ -42,7 +42,7 @@ public class HantoGameFactory
 	 */
 	public static HantoGameFactory getInstance()
 	{
-		return _instance;
+		return INSTANCE;
 	}
 	
 	/**
