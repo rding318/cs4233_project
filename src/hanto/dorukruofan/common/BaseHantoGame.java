@@ -45,10 +45,8 @@ public abstract class BaseHantoGame implements HantoGame {
 			HantoCoordinate to) throws HantoException {
 		gameEndsCheck();
 		placeButterflyBy4(pieceType);
-		makeMoveCheck(pieceType, from, to);
-		
-		incrementMove();
-		
+		makeMoveCheck(pieceType, from, to);	
+		incrementMove();	
 		return checkResult();
 	}
 	

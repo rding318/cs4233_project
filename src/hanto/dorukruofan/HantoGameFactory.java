@@ -15,6 +15,7 @@ import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
 import hanto.dorukruofan.alpha.AlphaHantoGame;
 import hanto.dorukruofan.beta.BetaHantoGame;
+import hanto.dorukruofan.delta.DeltaHantoGame;
 import hanto.dorukruofan.gamma.GammaHantoGame;
 
 /**
@@ -72,6 +73,9 @@ public class HantoGameFactory
 			break;
 		case GAMMA_HANTO:
 			game = new GammaHantoGame(movesFirst);
+			break;
+		case DELTA_HANTO:
+			game = new DeltaHantoGame(movesFirst);
 			break;
 		}
 		return game;

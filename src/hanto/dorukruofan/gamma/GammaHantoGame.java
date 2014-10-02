@@ -24,5 +24,4 @@ public class GammaHantoGame extends BaseHantoGame{
 			return null;
 		}
 	}
-
 }

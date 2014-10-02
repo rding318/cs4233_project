@@ -13,6 +13,7 @@ package hanto.dorukruofan.common;
 import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
+import hanto.dorukruofan.delta.DeltaHantoTestGame;
 import hanto.dorukruofan.gamma.GammaHantoTestGame;
 
 /**
@@ -61,6 +62,9 @@ public class HantoTestGameFactory
 		switch (gameId) {
 			case GAMMA_HANTO:
 				game = new GammaHantoTestGame(movesFirst);
+				break;
+			case DELTA_HANTO:
+				game = new DeltaHantoTestGame(movesFirst);
 				break;
 		}
 		return game;

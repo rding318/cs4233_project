@@ -12,12 +12,12 @@ import hanto.dorukruofan.common.WalkValidator;
 
 public class DeltaHantoGame extends BaseHantoGame{
 
-	protected DeltaHantoGame(HantoPlayerColor moveFirst) {
+	public DeltaHantoGame(HantoPlayerColor moveFirst) {
 		super(moveFirst);
 		
 		MAX_TYPE_NUM.put(HantoPieceType.SPARROW, 4);
 		MAX_TYPE_NUM.put(HantoPieceType.CRAB, 4);
-		MAX_GAME_TURNS = Integer.MAX_VALUE;
+		MAX_GAME_TURNS = Integer.MAX_VALUE / 2;
 	}
 
 	@Override
@@ -38,6 +38,7 @@ public class DeltaHantoGame extends BaseHantoGame{
 		if(from == null && to == null){
 			return nextMove == HantoPlayerColor.RED ? MoveResult.BLUE_WINS : MoveResult.RED_WINS;
 		}
+		
 		gameEndsCheck();
 		placeButterflyBy4(pieceType);
 		makeMoveCheck(pieceType, from, to);	

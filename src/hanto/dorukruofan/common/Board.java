@@ -13,12 +13,13 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class Board {
-	private Map<MyCoordinate, HantoPiece> piecesOnBoard= new HashMap<MyCoordinate, HantoPiece>();
+	private Map<MyCoordinate, HantoPiece> piecesOnBoard;
 	private Hashtable<HantoPieceType, Integer> redPieceCounter = new Hashtable<HantoPieceType, Integer>();
 	private Hashtable<HantoPieceType, Integer> bluePieceCounter = new Hashtable<HantoPieceType, Integer>();
 	private int size;
 	
 	public Board(){
+		piecesOnBoard = new HashMap<MyCoordinate, HantoPiece>();
 		for(HantoPieceType type: HantoPieceType.values()){
 			redPieceCounter.put(type, 0);
 			bluePieceCounter.put(type, 0);
@@ -29,6 +30,10 @@ public class Board {
 	public Board(Board copyBoard){
 		piecesOnBoard = new HashMap<MyCoordinate, HantoPiece>(copyBoard.piecesOnBoard);
 		size = copyBoard.size;
+		for(HantoPieceType type: HantoPieceType.values()){
+			redPieceCounter.put(type, copyBoard.getPieceNumber(HantoPlayerColor.RED, type));
+			bluePieceCounter.put(type, copyBoard.getPieceNumber(HantoPlayerColor.BLUE, type));
+		}
 	}
 	
 	/**
@@ -126,9 +131,9 @@ public class Board {
 	public String getPrintableBoard(){
 		String result = new String();
 		for(MyCoordinate coord: piecesOnBoard.keySet()){
-			result.concat(coord.toString() + piecesOnBoard.get(coord).getColor()+piecesOnBoard.get(coord).getType()+"\n");
+			result = result + coord.toString() + piecesOnBoard.get(coord).getColor()+piecesOnBoard.get(coord).getType()+"\n";
 		}
-		result.concat("\n");
+		result = result + "\n";
 		return result;
 	}
 }

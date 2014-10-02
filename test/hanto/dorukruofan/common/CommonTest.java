@@ -11,6 +11,8 @@
 package hanto.dorukruofan.common;
 
 import static org.junit.Assert.*;
+import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
 
 import org.junit.Test;
 
@@ -33,5 +35,23 @@ public class CommonTest
 		assertEquals(coord1.distance(coord3), 4);
 		assertEquals(coord1.distance(coord4), 5);
 	}
-
+	
+	@Test
+	public void boardPrintTest(){
+		Board board = new Board();
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0,0));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0,1));
+	
+		assertEquals(board.getPrintableBoard(), "(0,0)BLUECrab\n(0,1)BLUECrab\n\n");
+	}
+	
+	@Test
+	public void coordEqual(){
+		MyCoordinate coord = new MyCoordinate(0,0);
+		assertFalse(coord.equals(new Board()));
+		assertTrue(coord.equals(coord));
+	}
+	
 }
+
+
