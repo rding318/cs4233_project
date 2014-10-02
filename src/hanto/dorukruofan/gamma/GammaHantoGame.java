@@ -15,6 +15,11 @@ import hanto.dorukruofan.common.BaseHantoGame;
 import hanto.dorukruofan.common.MoveValidator;
 import hanto.dorukruofan.common.WalkValidator;
 
+/**
+ * A Gamma Hanto Game
+ * @author doruk, ruofan
+ *
+ */
 public class GammaHantoGame extends BaseHantoGame{
 	public GammaHantoGame(HantoPlayerColor moveFirst){
 		super(moveFirst);

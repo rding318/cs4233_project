@@ -9,8 +9,6 @@
  *******************************************************************************/
 package hanto.dorukruofan.beta;
 
-import java.util.Collection;
-
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPiece;
@@ -19,8 +17,8 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.dorukruofan.common.BaseHantoGame;
 import hanto.dorukruofan.common.MoveValidator;
-import hanto.dorukruofan.common.MyCoordinate;
-import hanto.dorukruofan.common.WalkValidator;
+
+import java.util.Collection;
 
 /**
  * @author doruk, ruofan
