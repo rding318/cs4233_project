@@ -13,6 +13,9 @@ import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 /**
  * A class to check whether a walk is validate for a piece
  * @author doruk, ruofan
@@ -29,6 +32,20 @@ public class WalkValidator extends MoveValidator {
 		if(from.distance(to) != 1){
 			throw new HantoException("Move distance is not 1 for walk");
 		}
+		Collection<MyCoordinate> common = new LinkedList<MyCoordinate>();
+		Collection<MyCoordinate> n1, n2;
+		n1 = board.getAdjacentLocations(from);
+		n2 = board.getAdjacentLocations(to);
+		for (MyCoordinate coord: n1){
+			if(n2.contains(coord) && !board.hasPieceAt(coord)){
+				common.add(coord);
+			}
+		}
+		
+		if (common.size() == 0) {
+			throw new HantoException("Not movable");
+		}
+		
 	}
 
 }

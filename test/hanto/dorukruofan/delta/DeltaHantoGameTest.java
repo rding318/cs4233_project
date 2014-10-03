@@ -415,14 +415,14 @@ public class DeltaHantoGameTest
 	
 	@Test
 	public void blueResign() throws HantoException{
-		MoveResult result = game.makeMove(BUTTERFLY, null, null);
+		MoveResult result = game.makeMove(null, null, null);
 		assertEquals(result, MoveResult.RED_WINS);
 	}
 	
 	@Test
 	public void redResign() throws HantoException{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
-		MoveResult result = game.makeMove(BUTTERFLY, null, null);
+		MoveResult result = game.makeMove(null, null, null);
 		assertEquals(result, MoveResult.BLUE_WINS);
 	}
 	

@@ -31,6 +31,7 @@ public abstract class BaseHantoGame implements HantoGame {
 	protected HantoPlayerColor nextMove, moveFirst;
 	protected Board board;
 	protected int moveCounter;
+	protected boolean gameEnd;
 
 	protected MyCoordinate redButterflyLocation;
 	protected MyCoordinate blueButterflyLocation;
@@ -49,6 +50,7 @@ public abstract class BaseHantoGame implements HantoGame {
 		blueButterflyLocation = null;
 		nextMove = moveFirst;
 		moveFirst = this.moveFirst;
+		gameEnd = false;
 		
 		MAX_TYPE_NUM = new Hashtable<HantoPieceType, Integer> ();
 		MAX_TYPE_NUM.put(HantoPieceType.BUTTERFLY, 1);
@@ -78,6 +80,13 @@ public abstract class BaseHantoGame implements HantoGame {
 	 */
 	protected void makeMoveCheck(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException{
+		if(pieceType == null){
+			throw new HantoException("PieceType needs to be specified");
+		}
+		if(to == null){
+			throw new HantoException("Destination needs to be specified");
+		}
+		
 		if(from == null){
 			putValidation(pieceType, to);
 			saveToBoard(to, pieceType);
@@ -99,7 +108,6 @@ public abstract class BaseHantoGame implements HantoGame {
 		pieceNumberCheck(pieceType);
 		isConnected(to);
 		coordinateConflictValidation(to);
-		onlyConnectedToTeamColor(to);
 	}
 	
 	/**
@@ -109,6 +117,9 @@ public abstract class BaseHantoGame implements HantoGame {
 	protected void gameEndsCheck() throws HantoException{
 		if(moveCounter >= MAX_GAME_TURNS * 2){
 			throw new HantoException("The game ends after " + MAX_GAME_TURNS + " turns");
+		}
+		if(gameEnd == true){
+			throw new HantoException("The game ends.");
 		}
 	}
 	
@@ -229,31 +240,20 @@ public abstract class BaseHantoGame implements HantoGame {
 	 * @return result of the move (OK, RED WINS, BLUE WINS or DRAW.)
 	 */
 	protected MoveResult checkResult(){
-		int enemyNum;
 		Collection<HantoPiece> neighbors ;
 
 		if(redButterflyLocation != null){
 			neighbors = board.getAdjacentPieces(redButterflyLocation);
-			enemyNum = 0;
-			for(HantoPiece piece: neighbors){
-				if(piece.getColor() == HantoPlayerColor.BLUE){
-					enemyNum++;
-				}
-			}
-			if(enemyNum == 6){
+			if(neighbors.size() == 6){
+				gameEnd = true;
 				return MoveResult.BLUE_WINS;
 			}
 		}
 
 		if(blueButterflyLocation != null){
 			neighbors = board.getAdjacentPieces(blueButterflyLocation);
-			enemyNum = 0;
-			for(HantoPiece piece: neighbors){
-				if(piece.getColor() == HantoPlayerColor.RED){
-					enemyNum++;
-				}
-			}
-			if(enemyNum == 6){
+			if(neighbors.size() == 6){
+				gameEnd = true;
 				return MoveResult.RED_WINS;
 			}
 		}
@@ -265,22 +265,6 @@ public abstract class BaseHantoGame implements HantoGame {
 		}
 	}
 	
-	/**
-	 * Validator method which checks if a placed piece is only connected to the player's 
-	 * color
-	 * @param to
-	 * @throws HantoException
-	 */
-	public void onlyConnectedToTeamColor(HantoCoordinate to) throws HantoException{
-		if(moveCounter < 2) {
-			return;
-		}
-		for(HantoPiece piece: board.getAdjacentPieces(to)){
-			if(piece.getColor() != nextMove){
-				throw new HantoException("Piece can not be put adjacent to opponent's pieces");
-			}
-		}
-	}
 	
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {

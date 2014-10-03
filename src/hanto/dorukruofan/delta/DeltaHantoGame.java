@@ -49,7 +49,7 @@ public class DeltaHantoGame extends BaseHantoGame{
 	
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
-		if(from == null && to == null){
+		if(pieceType == null && from == null && to == null){
 			return nextMove == HantoPlayerColor.RED ? MoveResult.BLUE_WINS : MoveResult.RED_WINS;
 		}
 		

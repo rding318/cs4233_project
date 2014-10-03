@@ -58,30 +58,6 @@ public class BetaHantoGame extends BaseHantoGame{
 		isConnected(to);
 		coordinateConflictValidation(to);
 	}
-	
-	protected MoveResult checkResult(){
-		Collection<HantoPiece> neighbors ;
-
-		if(redButterflyLocation != null){
-			neighbors = board.getAdjacentPieces(redButterflyLocation);
-			if(neighbors.size() == 6){
-				return MoveResult.BLUE_WINS;
-			}
-		}
-
-		if(blueButterflyLocation != null){
-			neighbors = board.getAdjacentPieces(blueButterflyLocation);
-			if(neighbors.size() == 6){
-				return MoveResult.RED_WINS;
-			}
-		}
-		
-		if(moveCounter < MAX_GAME_TURNS * 2){
-			return MoveResult.OK;
-		}else{
-			return MoveResult.DRAW;
-		}
-	}
 
 }
 

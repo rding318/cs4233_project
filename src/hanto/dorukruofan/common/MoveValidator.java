@@ -45,7 +45,7 @@ public abstract class MoveValidator{
 	protected boolean isConnected(Board board, MyCoordinate from, MyCoordinate to){
 		Board newBoard = new Board(board);
 		newBoard.movePiece(from, to);
-		
+		System.out.println(newBoard.getPrintableBoard());
 		Queue<MyCoordinate> unvisitedQueue = new LinkedList<MyCoordinate> ();
 		Set<MyCoordinate> visitedSet = new HashSet<MyCoordinate> ();
 		
@@ -54,13 +54,14 @@ public abstract class MoveValidator{
 		
 		while(unvisitedQueue.size()>0){
 			MyCoordinate visitingCoord = unvisitedQueue.poll();
-			
+			System.out.print(visitingCoord + " ");
 			for(MyCoordinate neighborCoord: newBoard.getAdjacentOccupiedLocation(visitingCoord)){
 				if(!visitedSet.contains(neighborCoord) && !unvisitedQueue.contains(neighborCoord)){
 					unvisitedQueue.add(neighborCoord);
 				}
 			}
 			visitedSet.add(visitingCoord);
+			System.out.println(visitedSet);
 		}
 		return visitedSet.size() == newBoard.size();
 	}
