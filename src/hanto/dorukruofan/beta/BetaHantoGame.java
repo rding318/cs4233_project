@@ -11,14 +11,10 @@ package hanto.dorukruofan.beta;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
-import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.common.MoveResult;
 import hanto.dorukruofan.common.BaseHantoGame;
 import hanto.dorukruofan.common.MoveValidator;
-
-import java.util.Collection;
 
 /**
  * @author doruk, ruofan
