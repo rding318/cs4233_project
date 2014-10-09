@@ -12,6 +12,15 @@ import hanto.common.HantoPlayerColor;
  *
  */
 public class FlyValidator extends MoveValidator{
+	int maxDistance;
+	
+	public FlyValidator(){
+		maxDistance = Integer.MAX_VALUE;
+	}
+	
+	public FlyValidator(int maxDistance){
+		this.maxDistance = maxDistance;
+	}
 
 	@Override
 	public void moveCheck(Board board, MyCoordinate from, MyCoordinate to,
@@ -23,6 +32,11 @@ public class FlyValidator extends MoveValidator{
 		if(!isConnected(board, from, to)){
 			throw new HantoException("Not Contiguous");
 		}
+		
+		if(from.distance(to) > maxDistance){
+			throw new HantoException("Unreachable location for Fly");
+		}
+		
 	}
 
 }

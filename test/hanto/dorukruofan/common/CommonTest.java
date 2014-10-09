@@ -11,6 +11,7 @@
 package hanto.dorukruofan.common;
 
 import static org.junit.Assert.*;
+import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
@@ -50,6 +51,33 @@ public class CommonTest
 		MyCoordinate coord = new MyCoordinate(0,0);
 		assertFalse(coord.equals(new Board()));
 		assertTrue(coord.equals(coord));
+	}
+	
+	
+	@Test
+	public void testJumpValidator() throws HantoException{
+		Board board = new Board();
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-3, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-2, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-1, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0, 1));
+		//board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0, 0));
+		
+		MoveValidator validator = new JumpValidator();
+		validator.moveCheck(board, new MyCoordinate(-3,1), new MyCoordinate(1,1), HantoPieceType.CRAB, HantoPlayerColor.BLUE);
+	}
+	
+	@Test
+	public void testJumpValidator2() throws HantoException{
+		Board board = new Board();
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-3, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-2, 1));
+		//board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-1, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0, 0));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-1, 0));	
+		MoveValidator validator = new JumpValidator();
+		validator.moveCheck(board, new MyCoordinate(-3,1), new MyCoordinate(1,1), HantoPieceType.CRAB, HantoPlayerColor.BLUE);
 	}
 	
 }
