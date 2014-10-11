@@ -28,6 +28,10 @@ public class Board {
 	private Map<MyCoordinate, HantoPiece> piecesOnBoard;
 	private Hashtable<HantoPieceType, Integer> redPieceCounter = new Hashtable<HantoPieceType, Integer>();
 	private Hashtable<HantoPieceType, Integer> bluePieceCounter = new Hashtable<HantoPieceType, Integer>();
+	
+	private Collection<MyCoordinate> redPiecesCoord;
+	private Collection<MyCoordinate> bluePiecesCoord;
+
 	private int size;
 	
 	/**
@@ -35,6 +39,8 @@ public class Board {
 	 */
 	public Board(){
 		piecesOnBoard = new HashMap<MyCoordinate, HantoPiece>();
+		redPiecesCoord = new LinkedList<MyCoordinate> ();
+		bluePiecesCoord = new LinkedList<MyCoordinate> ();
 		for(HantoPieceType type: HantoPieceType.values()){
 			redPieceCounter.put(type, 0);
 			bluePieceCounter.put(type, 0);
@@ -48,6 +54,8 @@ public class Board {
 	 */
 	public Board(Board copyBoard){
 		piecesOnBoard = new HashMap<MyCoordinate, HantoPiece>(copyBoard.piecesOnBoard);
+		redPiecesCoord = new LinkedList<MyCoordinate> (copyBoard.redPiecesCoord);
+		bluePiecesCoord = new LinkedList<MyCoordinate> (copyBoard.bluePiecesCoord);
 		size = copyBoard.size;
 		for(HantoPieceType type: HantoPieceType.values()){
 			redPieceCounter.put(type, copyBoard.getPieceNumber(HantoPlayerColor.RED, type));
@@ -127,9 +135,11 @@ public class Board {
 		switch (piece.getColor()){
 		case BLUE:
 			bluePieceCounter.put(piece.getType(), bluePieceCounter.get(piece.getType()) + 1);
+			bluePiecesCoord.add(new MyCoordinate(coordinate));
 			break;
 		case RED:
 			redPieceCounter.put(piece.getType(), redPieceCounter.get(piece.getType()) + 1);
+			redPiecesCoord.add(new MyCoordinate(coordinate));
 			break;
 		}
 		size++;
@@ -144,6 +154,15 @@ public class Board {
 		HantoPiece piece = getPieceAt(from);
 		piecesOnBoard.put(new MyCoordinate(to), piece);
 		piecesOnBoard.remove(new MyCoordinate(from));
+		
+		switch(piece.getColor()){
+		case RED:
+			redPiecesCoord.remove(new MyCoordinate(from));
+			redPiecesCoord.add(new MyCoordinate(to));
+		case BLUE:
+			bluePiecesCoord.remove(new MyCoordinate(from));
+			bluePiecesCoord.add(new MyCoordinate(to));
+		}
 	}
 	
 	/**
@@ -191,5 +210,16 @@ public class Board {
 		}
 		result = result + "\n";
 		return result;
+	}
+	
+	public Collection<MyCoordinate> getCoords(HantoPlayerColor color){
+		switch(color){
+		case BLUE:
+			return bluePiecesCoord;
+		case RED:
+			return redPiecesCoord;		
+		default:
+			return null;
+		}
 	}
 }

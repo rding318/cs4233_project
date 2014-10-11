@@ -17,7 +17,7 @@ package hanto.common;
  * 
  * @version Oct 6, 2014
  */
-public class HantoPrematureResignationException extends Exception {
+public class HantoPrematureResignationException extends HantoException{
 	public HantoPrematureResignationException() {
 		super("You resigned when you have a valid move available.");
 	}
