@@ -10,10 +10,10 @@
 
 package hanto.dorukruofan.common;
 
-import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
 import hanto.dorukruofan.delta.DeltaHantoTestGame;
+import hanto.dorukruofan.epsilon.EpsilonHantoTestGame;
 import hanto.dorukruofan.gamma.GammaHantoTestGame;
 
 /**
@@ -65,6 +65,9 @@ public class HantoTestGameFactory
 				break;
 			case DELTA_HANTO:
 				game = new DeltaHantoTestGame(movesFirst);
+				break;
+			case EPSILON_HANTO:
+				game = new EpsilonHantoTestGame(movesFirst);
 				break;
 		}
 		return game;

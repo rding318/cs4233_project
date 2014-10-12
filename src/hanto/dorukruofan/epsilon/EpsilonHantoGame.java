@@ -19,7 +19,7 @@ import java.util.LinkedList;
 
 public class EpsilonHantoGame extends BaseHantoGame{
 
-	protected EpsilonHantoGame(HantoPlayerColor moveFirst) {
+	public EpsilonHantoGame(HantoPlayerColor moveFirst) {
 		super(moveFirst);
 		
 		MAX_TYPE_NUM.put(HantoPieceType.SPARROW, 2);
