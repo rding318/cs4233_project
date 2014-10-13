@@ -9,9 +9,6 @@
  *******************************************************************************/
 package hanto.dorukruofan.gamma;
 
-import hanto.common.HantoCoordinate;
-import hanto.common.HantoException;
-import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.dorukruofan.common.BaseHantoGame;
@@ -42,22 +39,4 @@ public class GammaHantoGame extends BaseHantoGame{
 		}
 	}
 	
-	protected void putValidation(HantoPieceType pieceType, HantoCoordinate to) throws HantoException{
-		firstMoveValidation(to);
-		pieceNumberCheck(pieceType);
-		isConnected(to);
-		coordinateConflictValidation(to);
-		onlyConnectedToTeamColor(to);
-	}
-	
-	private void onlyConnectedToTeamColor(HantoCoordinate to) throws HantoException{
-		if(moveCounter < 2) {
-			return;
-		}
-		for(HantoPiece piece: board.getAdjacentPieces(to)){
-			if(piece.getColor() != nextMove){
-				throw new HantoException("Piece can not be put adjacent to opponent's pieces");
-			}
-		}
-	}
 }

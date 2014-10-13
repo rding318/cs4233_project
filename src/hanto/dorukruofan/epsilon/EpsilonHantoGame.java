@@ -15,7 +15,9 @@ import hanto.dorukruofan.common.MyCoordinate;
 import hanto.dorukruofan.common.WalkValidator;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class EpsilonHantoGame extends BaseHantoGame{
 
@@ -48,7 +50,7 @@ public class EpsilonHantoGame extends BaseHantoGame{
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		if(pieceType == null && from == null && to == null){
-			resign();
+			resignCheck();
 			return nextMove == HantoPlayerColor.RED ? MoveResult.BLUE_WINS : MoveResult.RED_WINS;
 		}
 		
@@ -59,58 +61,39 @@ public class EpsilonHantoGame extends BaseHantoGame{
 		return checkResult();
 	}
 	
-	public void resign() throws HantoPrematureResignationException{
-
-		for (HantoPieceType type : HantoPieceType.values()) {
-			if (MAX_TYPE_NUM.get(type) > board.getPieceNumber(nextMove, type)) {
-				throw new HantoPrematureResignationException();
-			}
-		}
-
-		for(MyCoordinate from: board.getCoords(nextMove)){
-			HantoPiece piece = board.getPieceAt(from);
-			try {
-				Collection<MyCoordinate> possibleCoords = coordGenerate(piece.getType(), from);
-				for(MyCoordinate to: possibleCoords){
-					makeMoveCheck(piece.getType(), from, to);
-				}
-			} catch (HantoException e) {
-				throw new HantoPrematureResignationException();
-			}
+	public void resignCheck() throws HantoPrematureResignationException{
+		if(moveCounter < 1){
+			throw new HantoPrematureResignationException();
 		}
 		
+		Set<MyCoordinate> availableDestination = new HashSet<MyCoordinate>();
+		for(MyCoordinate coord: board.getAllCoords()){
+			availableDestination.addAll(board.getAdjacentLocations(coord));
+		}
 		
-	}
 	
-	public Collection<MyCoordinate> coordGenerate(HantoPieceType type, MyCoordinate coord){
-		int distance;
-		switch(type){
-		case BUTTERFLY:
-			distance = 1;
-			break;
-		case CRAB:
-			distance = 1;
-			break;
-		case HORSE:
-			distance = 150;
-			break;
-		case SPARROW:
-			distance = 4;
-			break;
-		default:
-			distance = 0;
-		}
-		int dx[] = {0,1,1,0,-1,-1};
-		int dy[] = {1,0,-1,-1,0,1};
-		
-		Collection<MyCoordinate> coords = new LinkedList<MyCoordinate>();
-		for(int direction = 0; direction < 6; direction ++){
-			for(int dist = 1; dist <= distance; dist++){
-				coords.add(new MyCoordinate(coord.getX() + dx[direction] * distance, 
-						coord.getY() + dy[direction] * distance));
+		for (HantoPieceType type : HantoPieceType.values()) {
+			for (MyCoordinate to : availableDestination) {
+				try {
+					makeMoveCheck(type, null, to);
+				} catch (HantoException e) {
+					continue;
+				}
+				throw new HantoPrematureResignationException();
 			}
 		}
-		return coords;
+
+		for (MyCoordinate from : board.getAllCoords()) {
+			HantoPiece piece = board.getPieceAt(from);
+			for (MyCoordinate to : availableDestination) {
+				try {
+					makeMoveCheck(piece.getType(), from, to);
+				} catch (HantoException e) {
+					continue;
+				}
+				throw new HantoPrematureResignationException();
+			}
+		}
 	}
 
 }

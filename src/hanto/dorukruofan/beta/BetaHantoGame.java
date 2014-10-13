@@ -9,8 +9,11 @@
  *******************************************************************************/
 package hanto.dorukruofan.beta;
 
+import java.util.Collection;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.dorukruofan.common.BaseHantoGame;
@@ -53,6 +56,18 @@ public class BetaHantoGame extends BaseHantoGame{
 		pieceNumberCheck(pieceType);
 		isConnected(to);
 		coordinateConflictValidation(to);
+	}
+	
+	private void isConnected(HantoCoordinate to) throws HantoException{
+		if(moveCounter == 0) {
+			return;
+		}
+		
+		Collection<HantoPiece> neighborsPiece = board.getAdjacentPieces(to);
+		
+		if(neighborsPiece.size() == 0){
+			throw new HantoException("The piece is not connected with any other pieces on the board");
+		}
 	}
 
 }

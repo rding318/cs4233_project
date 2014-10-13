@@ -106,7 +106,7 @@ public abstract class BaseHantoGame implements HantoGame {
 	protected void putValidation(HantoPieceType pieceType, HantoCoordinate to) throws HantoException{
 		firstMoveValidation(to);
 		pieceNumberCheck(pieceType);
-		isConnected(to);
+		onlyConnectedToTeamColor(to);
 		coordinateConflictValidation(to);
 	}
 	
@@ -203,20 +203,22 @@ public abstract class BaseHantoGame implements HantoGame {
 		}
 	}
 	
-	/**
-	 * Validator to check that a given coordinate is connected to other pieces
-	 * @param to
-	 * @throws HantoException
-	 */
-	protected void isConnected(HantoCoordinate to) throws HantoException{
-		if(moveCounter == 0) {
-			return;
-		}
-		
+	protected void onlyConnectedToTeamColor(HantoCoordinate to) throws HantoException{
 		Collection<HantoPiece> neighborsPiece = board.getAdjacentPieces(to);
-		
-		if(neighborsPiece.size() == 0){
-			throw new HantoException("The piece is not connected with any other pieces on the board");
+		if(moveCounter == 0){
+			return;
+		}else{
+			if(neighborsPiece.size() == 0){
+				throw new HantoException("The piece is not connected with any other pieces on the board");
+			}
+			
+			if(moveCounter >= 2){
+				for(HantoPiece piece: neighborsPiece){
+					if(piece.getColor() != nextMove){
+						throw new HantoException("Piece can not be put adjacent to opponent's pieces");
+					}
+				}
+			}
 		}
 	}
 	

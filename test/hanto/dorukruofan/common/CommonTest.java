@@ -67,7 +67,7 @@ public class CommonTest
 		validator.moveCheck(board, new MyCoordinate(-3,1), new MyCoordinate(1,1), HantoPieceType.CRAB, HantoPlayerColor.BLUE);
 	}
 	
-	@Test
+	@Test(expected=HantoException.class)
 	public void testJumpValidator2() throws HantoException{
 		Board board = new Board();
 		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-3, 1));
@@ -78,6 +78,30 @@ public class CommonTest
 		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-1, 0));	
 		MoveValidator validator = new JumpValidator();
 		validator.moveCheck(board, new MyCoordinate(-3,1), new MyCoordinate(1,1), HantoPieceType.CRAB, HantoPlayerColor.BLUE);
+	}
+	
+	@Test(expected=HantoException.class)
+	public void testJumpValidator3() throws HantoException{
+		Board board = new Board();
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-3, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-2, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-1, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0, 1));
+			MoveValidator validator = new JumpValidator();
+		validator.moveCheck(board, new MyCoordinate(-3,1), new MyCoordinate(0,2), HantoPieceType.CRAB, HantoPlayerColor.BLUE);
+	}
+	
+	@Test(expected=HantoException.class)
+	public void testFlyValidator() throws HantoException{
+		Board board = new Board();
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.SPARROW), new MyCoordinate(-3, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-2, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(-1, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(0, 1));
+		board.putPieceAt(new Piece(HantoPlayerColor.BLUE, HantoPieceType.CRAB), new MyCoordinate(1, 1));
+		MoveValidator validator = new FlyValidator(4);
+		validator.moveCheck(board, new MyCoordinate(-3,1), new MyCoordinate(1,1), HantoPieceType.SPARROW, HantoPlayerColor.BLUE);
+
 	}
 	
 }
