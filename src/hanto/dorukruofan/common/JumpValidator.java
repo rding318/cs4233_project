@@ -23,7 +23,7 @@ public class JumpValidator extends MoveValidator{
 			throw new HantoException("Can not jump to current coordinate");
 		}
 		
-		if(!(Math.abs(dx) == Math.abs(dy) || dx == 0  || dy == 0)){
+		if(!(dx == -dy || dx == 0  || dy == 0)){
 			throw new HantoException("Jumping has to be on a straight line");
 		}
 		
@@ -31,6 +31,9 @@ public class JumpValidator extends MoveValidator{
 		dx = dx / distance;
 		dy = dy / distance;
 		
+		if(distance <= 1){
+			throw new HantoException(" You must jump over at least one occupied hex");
+		}
 		
 		for(int i=1; i < distance; i++){
 			MyCoordinate coord = new MyCoordinate(i*dx+from.getX(), i*dy + from.getY());

@@ -126,7 +126,7 @@ public class GammaHantoGameTest
 		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[1];
 		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 0));
 		game.initializeBoard(pieces);
-		game.setTurnNumber(4);
+		game.setTurnNumber(3);
 		game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 1));
 	}
 	
@@ -136,7 +136,7 @@ public class GammaHantoGameTest
 		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[1];
 		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 0));
 		game.initializeBoard(pieces);
-		game.setTurnNumber(4);
+		game.setTurnNumber(3);
 		game.setPlayerMoving(RED);
 		game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 1));
 	}

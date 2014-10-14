@@ -13,6 +13,7 @@ import hanto.dorukruofan.common.JumpValidator;
 import hanto.dorukruofan.common.MoveValidator;
 import hanto.dorukruofan.common.MyCoordinate;
 import hanto.dorukruofan.common.WalkValidator;
+import hanto.tournament.HantoMoveRecord;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -57,21 +58,35 @@ public class EpsilonHantoGame extends BaseHantoGame{
 		gameEndsCheck();
 		placeButterflyBy4(pieceType);
 		makeMoveCheck(pieceType, from, to);	
+		saveMove(pieceType, from, to);
 		incrementMove();	
 		return checkResult();
 	}
 	
 	public void resignCheck() throws HantoPrematureResignationException{
-		if(moveCounter < 1){
+		if(getPossibleMoves(nextMove).size() != 0){
 			throw new HantoPrematureResignationException();
 		}
-		
+	}
+	
+	public Collection<HantoMoveRecord> getPossibleMoves(HantoPlayerColor color) {
+
 		Set<MyCoordinate> availableDestination = new HashSet<MyCoordinate>();
-		for(MyCoordinate coord: board.getAllCoords()){
-			availableDestination.addAll(board.getAdjacentLocations(coord));
+		Collection<HantoMoveRecord> possibleMoves = new LinkedList<HantoMoveRecord>();
+		
+		if(moveCounter == 0) {
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new MyCoordinate(0,0)));
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.CRAB, null, new MyCoordinate(0,0)));
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.SPARROW, null, new MyCoordinate(0,0)));
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.HORSE, null, new MyCoordinate(0,0)));
+			return possibleMoves;
 		}
 		
-	
+		
+		for (MyCoordinate coord: board.getAllCoords()){
+			availableDestination.addAll(board.getAdjacentLocations(coord));
+		}
+
 		for (HantoPieceType type : HantoPieceType.values()) {
 			for (MyCoordinate to : availableDestination) {
 				try {
@@ -79,10 +94,10 @@ public class EpsilonHantoGame extends BaseHantoGame{
 				} catch (HantoException e) {
 					continue;
 				}
-				throw new HantoPrematureResignationException();
+				possibleMoves.add(new HantoMoveRecord(type, null, to));
 			}
 		}
-
+		
 		for (MyCoordinate from : board.getAllCoords()) {
 			HantoPiece piece = board.getPieceAt(from);
 			for (MyCoordinate to : availableDestination) {
@@ -91,9 +106,9 @@ public class EpsilonHantoGame extends BaseHantoGame{
 				} catch (HantoException e) {
 					continue;
 				}
-				throw new HantoPrematureResignationException();
+				possibleMoves.add(new HantoMoveRecord(piece.getType(), from, to));
 			}
 		}
+		return possibleMoves;
 	}
-
 }

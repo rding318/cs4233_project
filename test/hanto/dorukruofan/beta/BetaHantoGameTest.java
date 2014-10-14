@@ -189,13 +189,13 @@ public class BetaHantoGameTest
 		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, 1));
 		
 		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, -1));
-		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, 2));
+		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 2));
 		
 		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, -2));
 		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, 3));
 		
 		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, -3));
-		game.makeMove(HantoPieceType.BUTTERFLY, null, new TestHantoCoordinate(0, 4));
+		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, 4));
 		
 		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, -4));
 		game.makeMove(HantoPieceType.SPARROW, null, new TestHantoCoordinate(0, 5));

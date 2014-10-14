@@ -62,4 +62,5 @@ public class HantoMoveRecord
 	{
 		return to;
 	}
+	
 }

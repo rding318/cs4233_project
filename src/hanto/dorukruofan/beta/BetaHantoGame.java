@@ -41,9 +41,7 @@ public class BetaHantoGame extends BaseHantoGame{
 		if(from != null){
 			throw new HantoException("Moving a piece is not supported in Alpha Hanto");
 		}
-		
 		putValidation(pieceType, to);
-		saveToBoard(to, pieceType);
 	}
 
 	@Override

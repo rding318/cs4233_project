@@ -67,6 +67,7 @@ public abstract class BaseHantoGame implements HantoGame {
 		gameEndsCheck();
 		placeButterflyBy4(pieceType);
 		makeMoveCheck(pieceType, from, to);	
+		saveMove(pieceType, from, to);
 		incrementMove();	
 		return checkResult();
 	}
@@ -80,20 +81,40 @@ public abstract class BaseHantoGame implements HantoGame {
 	 */
 	protected void makeMoveCheck(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException{
+		placeButterflyBy4(pieceType);
+		coordinateConflictValidation(to);
 		if(pieceType == null){
 			throw new HantoException("PieceType needs to be specified");
 		}
 		if(to == null){
 			throw new HantoException("Destination needs to be specified");
 		}
-		
+
 		if(from == null){
 			putValidation(pieceType, to);
-			saveToBoard(to, pieceType);
 		}else{
 			MoveValidator validator = getMoveValidator(pieceType);
 			validator.moveCheck(board, new MyCoordinate(from), new MyCoordinate(to), pieceType, nextMove);
+		}
+	}
+	
+	protected void saveMove(HantoPieceType pieceType, HantoCoordinate from,
+			HantoCoordinate to) {
+		if(from == null){
+			Piece piece = new Piece(nextMove, pieceType);
+			board.putPieceAt(piece, to);
+		}else{
 			board.movePiece(from, to);
+		}
+		if(pieceType == HantoPieceType.BUTTERFLY){
+			switch(nextMove){
+			case BLUE:
+				blueButterflyLocation = new MyCoordinate(to);
+				break;
+			case RED:
+				redButterflyLocation = new MyCoordinate(to);
+				break;
+			}
 		}
 	}
 	
@@ -107,7 +128,6 @@ public abstract class BaseHantoGame implements HantoGame {
 		firstMoveValidation(to);
 		pieceNumberCheck(pieceType);
 		onlyConnectedToTeamColor(to);
-		coordinateConflictValidation(to);
 	}
 	
 	/**
@@ -154,7 +174,7 @@ public abstract class BaseHantoGame implements HantoGame {
 	 * @throws HantoException
 	 */
 	protected void placeButterflyBy4(HantoPieceType pieceType) throws HantoException{
-		if(moveCounter == 6 || moveCounter == 7){
+		if(moveCounter == 4 || moveCounter == 5){
 			switch(nextMove){
 			case RED:
 				if(redButterflyLocation == null && pieceType != HantoPieceType.BUTTERFLY){
@@ -179,27 +199,6 @@ public abstract class BaseHantoGame implements HantoGame {
 	protected void pieceNumberCheck(HantoPieceType type) throws HantoException{
 		if(board.getPieceNumber(nextMove, type) >= MAX_TYPE_NUM.get(type)){
 			throw new HantoException("There can be no more than " + MAX_TYPE_NUM.get(type) + " " + type.getPrintableName() + " for each color");
-		}
-	}
-
-	/**
-	 * Method used to save pieces on board. New pieces are just saved and 
-	 * existing pieces which are moved are updated.
-	 * @param to
-	 * @param pieceType
-	 */
-	protected void saveToBoard(HantoCoordinate to, HantoPieceType pieceType){
-		Piece piece = new Piece(nextMove, pieceType);
-		board.putPieceAt(piece, to);
-		if(pieceType == HantoPieceType.BUTTERFLY){
-			switch(nextMove){
-			case BLUE:
-				blueButterflyLocation = new MyCoordinate(to);
-				break;
-			case RED:
-				redButterflyLocation = new MyCoordinate(to);
-				break;
-			}
 		}
 	}
 	

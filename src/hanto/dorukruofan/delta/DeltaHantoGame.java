@@ -56,6 +56,7 @@ public class DeltaHantoGame extends BaseHantoGame{
 		gameEndsCheck();
 		placeButterflyBy4(pieceType);
 		makeMoveCheck(pieceType, from, to);	
+		saveMove(pieceType, from, to);
 		incrementMove();	
 		return checkResult();
 	}
