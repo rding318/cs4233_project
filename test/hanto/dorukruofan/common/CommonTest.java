@@ -14,6 +14,12 @@ import static org.junit.Assert.*;
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.studentdorukruofan.common.Board;
+import hanto.studentdorukruofan.common.FlyValidator;
+import hanto.studentdorukruofan.common.JumpValidator;
+import hanto.studentdorukruofan.common.MoveValidator;
+import hanto.studentdorukruofan.common.MyCoordinate;
+import hanto.studentdorukruofan.common.Piece;
 
 import org.junit.Test;
 

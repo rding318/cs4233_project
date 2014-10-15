@@ -7,17 +7,17 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.dorukruofan.delta;
+package hanto.studentdorukruofan.delta;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.dorukruofan.common.BaseHantoGame;
-import hanto.dorukruofan.common.FlyValidator;
-import hanto.dorukruofan.common.MoveValidator;
-import hanto.dorukruofan.common.WalkValidator;
+import hanto.studentdorukruofan.common.BaseHantoGame;
+import hanto.studentdorukruofan.common.FlyValidator;
+import hanto.studentdorukruofan.common.MoveValidator;
+import hanto.studentdorukruofan.common.WalkValidator;
 
 /**
  * A Delta Hanto Game

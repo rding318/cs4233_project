@@ -1,4 +1,4 @@
-package hanto.dorukruofan.epsilon;
+package hanto.studentdorukruofan.epsilon;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -7,12 +7,12 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.HantoPrematureResignationException;
 import hanto.common.MoveResult;
-import hanto.dorukruofan.common.BaseHantoGame;
-import hanto.dorukruofan.common.FlyValidator;
-import hanto.dorukruofan.common.JumpValidator;
-import hanto.dorukruofan.common.MoveValidator;
-import hanto.dorukruofan.common.MyCoordinate;
-import hanto.dorukruofan.common.WalkValidator;
+import hanto.studentdorukruofan.common.BaseHantoGame;
+import hanto.studentdorukruofan.common.FlyValidator;
+import hanto.studentdorukruofan.common.JumpValidator;
+import hanto.studentdorukruofan.common.MoveValidator;
+import hanto.studentdorukruofan.common.MyCoordinate;
+import hanto.studentdorukruofan.common.WalkValidator;
 import hanto.tournament.HantoMoveRecord;
 
 import java.util.Collection;

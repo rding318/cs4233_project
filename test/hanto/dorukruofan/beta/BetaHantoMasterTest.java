@@ -25,7 +25,7 @@ import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPiece;
 import hanto.common.MoveResult;
-import hanto.dorukruofan.HantoGameFactory;
+import hanto.studentdorukruofan.HantoGameFactory;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

@@ -15,7 +15,8 @@ import hanto.common.HantoException;
 import hanto.common.HantoGame;
 import hanto.common.HantoPieceType;
 import hanto.common.MoveResult;
-import hanto.dorukruofan.common.MyCoordinate;
+import hanto.studentdorukruofan.alpha.AlphaHantoGame;
+import hanto.studentdorukruofan.common.MyCoordinate;
 
 import org.junit.Before;
 import org.junit.Test;

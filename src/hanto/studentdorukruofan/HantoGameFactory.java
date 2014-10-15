@@ -8,16 +8,16 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package hanto.dorukruofan;
+package hanto.studentdorukruofan;
 
 import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
-import hanto.dorukruofan.alpha.AlphaHantoGame;
-import hanto.dorukruofan.beta.BetaHantoGame;
-import hanto.dorukruofan.delta.DeltaHantoGame;
-import hanto.dorukruofan.epsilon.EpsilonHantoGame;
-import hanto.dorukruofan.gamma.GammaHantoGame;
+import hanto.studentdorukruofan.alpha.AlphaHantoGame;
+import hanto.studentdorukruofan.beta.BetaHantoGame;
+import hanto.studentdorukruofan.delta.DeltaHantoGame;
+import hanto.studentdorukruofan.epsilon.EpsilonHantoGame;
+import hanto.studentdorukruofan.gamma.GammaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version

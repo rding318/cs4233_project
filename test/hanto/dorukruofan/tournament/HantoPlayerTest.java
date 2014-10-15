@@ -2,6 +2,7 @@ package hanto.dorukruofan.tournament;
 
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
+import hanto.studentdorukruofan.tournament.HantoPlayer;
 import hanto.tournament.HantoMoveRecord;
 
 import org.junit.Before;

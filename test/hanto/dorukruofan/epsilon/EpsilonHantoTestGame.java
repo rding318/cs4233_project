@@ -3,8 +3,9 @@ package hanto.dorukruofan.epsilon;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.dorukruofan.common.HantoTestGame;
-import hanto.dorukruofan.common.MyCoordinate;
-import hanto.dorukruofan.common.Piece;
+import hanto.studentdorukruofan.common.MyCoordinate;
+import hanto.studentdorukruofan.common.Piece;
+import hanto.studentdorukruofan.epsilon.EpsilonHantoGame;
 
 public class EpsilonHantoTestGame extends EpsilonHantoGame implements HantoTestGame{
 

@@ -1,4 +1,4 @@
-package hanto.dorukruofan.common;
+package hanto.studentdorukruofan.common;
 
 import hanto.common.HantoException;
 import hanto.common.HantoPieceType;

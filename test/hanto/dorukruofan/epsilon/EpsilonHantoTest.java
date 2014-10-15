@@ -17,7 +17,7 @@ import hanto.common.MoveResult;
 import hanto.dorukruofan.common.HantoTestGame;
 import hanto.dorukruofan.common.HantoTestGame.PieceLocationPair;
 import hanto.dorukruofan.common.HantoTestGameFactory;
-import hanto.dorukruofan.common.MyCoordinate;
+import hanto.studentdorukruofan.common.MyCoordinate;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

@@ -26,10 +26,10 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.dorukruofan.HantoGameFactory;
 import hanto.dorukruofan.common.HantoTestGame;
 import hanto.dorukruofan.common.HantoTestGame.PieceLocationPair;
 import hanto.dorukruofan.common.HantoTestGameFactory;
+import hanto.studentdorukruofan.HantoGameFactory;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

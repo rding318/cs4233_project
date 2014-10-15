@@ -1,12 +1,12 @@
 /**
  * 
  */
-package hanto.dorukruofan.tournament;
+package hanto.studentdorukruofan.tournament;
 
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.dorukruofan.common.MyCoordinate;
-import hanto.dorukruofan.epsilon.EpsilonHantoGame;
+import hanto.studentdorukruofan.common.MyCoordinate;
+import hanto.studentdorukruofan.epsilon.EpsilonHantoGame;
 import hanto.tournament.HantoMoveRecord;
 
 import java.util.Collection;

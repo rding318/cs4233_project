@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.dorukruofan.alpha;
+package hanto.studentdorukruofan.alpha;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -16,7 +16,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.dorukruofan.common.Piece;
+import hanto.studentdorukruofan.common.Piece;
 
 import java.util.HashMap;
 import java.util.Map;

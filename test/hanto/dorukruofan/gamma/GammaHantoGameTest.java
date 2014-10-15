@@ -28,6 +28,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.dorukruofan.common.HantoTestGame;
 import hanto.dorukruofan.common.HantoTestGameFactory;
+import hanto.studentdorukruofan.gamma.GammaHantoGame;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

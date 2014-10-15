@@ -30,6 +30,7 @@ import hanto.common.MoveResult;
 import hanto.dorukruofan.common.HantoTestGame;
 import hanto.dorukruofan.common.HantoTestGame.PieceLocationPair;
 import hanto.dorukruofan.common.HantoTestGameFactory;
+import hanto.studentdorukruofan.delta.DeltaHantoGame;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

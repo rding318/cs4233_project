@@ -18,7 +18,8 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.common.HantoPieceType;
-import hanto.dorukruofan.HantoGameFactory;
+import hanto.studentdorukruofan.HantoGameFactory;
+import hanto.studentdorukruofan.beta.BetaHantoGame;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

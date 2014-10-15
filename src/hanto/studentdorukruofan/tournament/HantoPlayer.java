@@ -1,4 +1,4 @@
-package hanto.dorukruofan.tournament;
+package hanto.studentdorukruofan.tournament;
 
 import hanto.common.HantoException;
 import hanto.common.HantoGameID;

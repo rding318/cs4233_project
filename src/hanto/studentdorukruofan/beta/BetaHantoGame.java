@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.dorukruofan.beta;
+package hanto.studentdorukruofan.beta;
 
 import java.util.Collection;
 
@@ -16,8 +16,8 @@ import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.dorukruofan.common.BaseHantoGame;
-import hanto.dorukruofan.common.MoveValidator;
+import hanto.studentdorukruofan.common.BaseHantoGame;
+import hanto.studentdorukruofan.common.MoveValidator;
 
 /**
  * @author doruk, ruofan
