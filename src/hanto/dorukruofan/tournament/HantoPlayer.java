@@ -9,6 +9,7 @@ import hanto.tournament.HantoMoveRecord;
 import java.util.Collection;
 
 public class HantoPlayer implements HantoGamePlayer {
+	public static final double LOWEST_WEIGHT = -1000000;
 	EpsilonGameForPlayer game;
 	HantoPlayerColor playerColor;
 
@@ -40,7 +41,6 @@ public class HantoPlayer implements HantoGamePlayer {
 				game.makeMove(opponentsMove.getPiece(),
 						opponentsMove.getFrom(), opponentsMove.getTo());
 			} catch (HantoException e) {
-				System.out.println("Opponent's move is not valid");
 			}
 		}
 
@@ -49,7 +49,6 @@ public class HantoPlayer implements HantoGamePlayer {
 			try {
 				game.makeMove(null, null, null);
 			} catch (HantoException e) {
-				e.printStackTrace();
 			}
 			return new HantoMoveRecord(null, null, null);
 		}
@@ -67,7 +66,6 @@ public class HantoPlayer implements HantoGamePlayer {
 			game.makeMove(bestMove.getPiece(), bestMove.getFrom(),
 					bestMove.getTo());
 		} catch (HantoException e) {
-			System.out.println("My move is not valid");
 		}
 		return bestMove;
 	}
