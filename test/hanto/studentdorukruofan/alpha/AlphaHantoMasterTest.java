@@ -7,7 +7,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package hanto.dorukruofan.alpha;
+package hanto.studentdorukruofan.alpha;
 
 import static org.junit.Assert.*;
 import hanto.common.HantoCoordinate;

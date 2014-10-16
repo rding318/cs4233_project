@@ -96,8 +96,8 @@ public class AlphaHantoGame implements HantoGame{
 
 	@Override
 	public String getPrintableBoard() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

@@ -48,18 +48,15 @@ public class EpsilonHantoGame extends BaseHantoGame{
 
 	@Override
 	protected MoveValidator getMoveValidator(HantoPieceType type) {
-		switch(type){
-		case SPARROW:
-			return new FlyValidator(4);
-		case BUTTERFLY:
-			return new WalkValidator();
-		case CRAB:
-			return new WalkValidator();
-		case HORSE:
-			return new JumpValidator();
-		default:
-			return null;
+		MoveValidator v = null;
+		if(type == HantoPieceType.SPARROW){
+			v = new FlyValidator(4);
+		}else if(type == HantoPieceType.BUTTERFLY || type == HantoPieceType.CRAB){
+			v = new WalkValidator();
+		}else if(type == HantoPieceType.HORSE){
+			v = new JumpValidator();
 		}
+		return v;
 	}
 	
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,

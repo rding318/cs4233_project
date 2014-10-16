@@ -46,6 +46,8 @@ public class HantoPlayer implements HantoGamePlayer {
 			}
 		}
 	}
+	
+	private void doNothing(){}
 
 	@Override
 	public HantoMoveRecord makeMove(HantoMoveRecord opponentsMove) {
@@ -55,22 +57,14 @@ public class HantoPlayer implements HantoGamePlayer {
 				game.makeMove(opponentsMove.getPiece(),
 						opponentsMove.getFrom(), opponentsMove.getTo());
 			} catch (HantoException e) {
-				System.out.println("Opponent's move is null\n");
+				doNothing();
 			}
 		}
 
 		Collection<HantoMoveRecord> possibleMoves = game.getPossibleMoves(playerColor);
-		if (possibleMoves.size() == 0) {
-			try {
-				game.makeMove(null, null, null);
-			} catch (HantoException e) {
-				System.out.println("makeMove exception was caught\n");
-			}
-			return new HantoMoveRecord(null, null, null);
-		}
 
-		HantoMoveRecord bestMove = null;
-		double bestMoveWeight = -10000000;
+		HantoMoveRecord bestMove = new HantoMoveRecord(null, null, null);
+		double bestMoveWeight = HantoPlayer.LOWEST_WEIGHT - 1000;
 		for (HantoMoveRecord move : possibleMoves) {
 			double weight = game.getMoveWeight(move, playerColor);
 			if (bestMoveWeight < weight) {
@@ -82,7 +76,7 @@ public class HantoPlayer implements HantoGamePlayer {
 			game.makeMove(bestMove.getPiece(), bestMove.getFrom(),
 					bestMove.getTo());
 		} catch (HantoException e) {
-			System.out.println("makeMove exception was caught");
+			doNothing();
 		}
 		return bestMove;
 	}
