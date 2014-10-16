@@ -36,15 +36,13 @@ public class DeltaHantoGame extends BaseHantoGame{
 
 	@Override
 	protected MoveValidator getMoveValidator(HantoPieceType type) {
-		switch(type){
-		case SPARROW:
-			return new FlyValidator();
-		case BUTTERFLY:
-		case CRAB:
-			return new WalkValidator();
-		default:
-			return null;
+		MoveValidator v = null;
+		if(type == HantoPieceType.SPARROW){
+			v = new FlyValidator();
+		}else if(type == HantoPieceType.BUTTERFLY || type == HantoPieceType.CRAB){
+			v = new WalkValidator();
 		}
+		return v;
 	}
 	
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
@@ -54,7 +52,7 @@ public class DeltaHantoGame extends BaseHantoGame{
 		}
 		
 		gameEndsCheck();
-		placeButterflyBy4(pieceType);
+		placeButterflyBy4();
 		makeMoveCheck(pieceType, from, to);	
 		saveMove(pieceType, from, to);
 		incrementMove();	

@@ -65,7 +65,7 @@ public abstract class BaseHantoGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		gameEndsCheck();
-		placeButterflyBy4(pieceType);
+		placeButterflyBy4();
 		makeMoveCheck(pieceType, from, to);	
 		saveMove(pieceType, from, to);
 		incrementMove();	
@@ -81,7 +81,7 @@ public abstract class BaseHantoGame implements HantoGame {
 	 */
 	protected void makeMoveCheck(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException{
-		placeButterflyBy4(pieceType);
+		placeButterflyBy4();
 		coordinateConflictValidation(to);
 		if(pieceType == null){
 			throw new HantoException("PieceType needs to be specified");
@@ -173,16 +173,16 @@ public abstract class BaseHantoGame implements HantoGame {
 	 * @param pieceType
 	 * @throws HantoException
 	 */
-	protected void placeButterflyBy4(HantoPieceType pieceType) throws HantoException{
-		if(moveCounter == 4 || moveCounter == 5){
+	protected void placeButterflyBy4() throws HantoException{
+		if(moveCounter >= 6){
 			switch(nextMove){
 			case RED:
-				if(redButterflyLocation == null && pieceType != HantoPieceType.BUTTERFLY){
+				if(redButterflyLocation == null){
 					throw new HantoException("The butterfly should be placed by the 4th turn");
 				}
 				break;
 			case BLUE:
-				if(blueButterflyLocation == null && pieceType != HantoPieceType.BUTTERFLY){
+				if(blueButterflyLocation == null){
 					throw new HantoException("The butterfly should be placed by the 4th turn");
 				}
 				break;

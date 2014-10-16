@@ -29,6 +29,7 @@ import hanto.common.MoveResult;
 import hanto.dorukruofan.common.HantoTestGame;
 import hanto.dorukruofan.common.HantoTestGameFactory;
 import hanto.dorukruofan.common.HantoTestGame.PieceLocationPair;
+import hanto.studentdorukruofan.HantoGameFactory;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -88,7 +89,7 @@ public class GammaHantoProfTest
 	{
 		// By default, blue moves first.
 		testGame = factory.makeHantoTestGame(HantoGameID.GAMMA_HANTO);
-		game = testGame;
+		game = HantoGameFactory.getInstance().makeHantoGame(HantoGameID.GAMMA_HANTO);
 	}
 	
 	@Test

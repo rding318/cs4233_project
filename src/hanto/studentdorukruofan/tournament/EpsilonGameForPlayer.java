@@ -3,9 +3,12 @@
  */
 package hanto.studentdorukruofan.tournament;
 
+import hanto.common.HantoException;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.studentdorukruofan.common.MyCoordinate;
+import hanto.studentdorukruofan.common.WalkValidator;
 import hanto.studentdorukruofan.epsilon.EpsilonHantoGame;
 import hanto.tournament.HantoMoveRecord;
 
@@ -25,9 +28,18 @@ public class EpsilonGameForPlayer extends EpsilonHantoGame {
 	public double getMoveWeight(HantoMoveRecord move, HantoPlayerColor myColor) {
 		double weight = -100000;
 		
-		if(redButterflyLocation == null || blueButterflyLocation == null){
-			return Math.random();
+		if(move.getPiece() == HantoPieceType.BUTTERFLY && move.getFrom() == null){
+			return 100 + Math.random();
 		}
+		
+		if(redButterflyLocation == null || blueButterflyLocation == null){
+			if(move.getFrom() == null){
+				return Math.random();
+			}else{
+				return Math.random() * -1;
+			}
+		}
+		
 		MyCoordinate myButterFly, opponentButterfly;
 		if(myColor == HantoPlayerColor.BLUE){
 			myButterFly = blueButterflyLocation;
@@ -37,9 +49,44 @@ public class EpsilonGameForPlayer extends EpsilonHantoGame {
 			opponentButterfly = blueButterflyLocation;
 		}
 		
+		boolean isButterflyDanger = false;
+		int opponentAroundBF = 0;
+		int aroundBF = 0;
+		
+		int possibleMoves = 6;
+		for (MyCoordinate coord: board.getAdjacentLocations(myButterFly)){
+			WalkValidator validator = new WalkValidator();
+			try {
+				validator.moveCheck(board, myButterFly, coord, HantoPieceType.BUTTERFLY, myColor);
+			} catch (HantoException e) {
+				possibleMoves--;
+			}
+		}
+		if(possibleMoves == 0){
+			isButterflyDanger = true;
+		}
+		
+		for (HantoPiece piece : board.getAdjacentPieces(myButterFly)) {
+			aroundBF++;
+			if (piece.getColor() != myColor) {
+				opponentAroundBF++;
+			}
+		}
+		if(aroundBF >= 4 || opponentAroundBF >= 2){
+			isButterflyDanger = true;
+		}
+
+		
 		if(move.getPiece() == HantoPieceType.BUTTERFLY){
 			Collection<MyCoordinate> willSurrounded = board.getAdjacentOccupiedLocation(new MyCoordinate(move.getTo()));
-			Collection<MyCoordinate> currentSurrounded = board.getAdjacentOccupiedLocation(new MyCoordinate(move.getTo()));
+			Collection<MyCoordinate> currentSurrounded = board.getAdjacentOccupiedLocation(new MyCoordinate(move.getFrom()));
+			
+			
+			if(!isButterflyDanger){
+				weight = 0;
+				return weight;
+			}
+			
 			if(willSurrounded.size() - 1 > currentSurrounded.size()){
 				weight = HantoPlayer.LOWEST_WEIGHT;
 				return weight;
@@ -52,7 +99,7 @@ public class EpsilonGameForPlayer extends EpsilonHantoGame {
 			}
 		}
 		
-		if (board.getAdjacentOccupiedLocation(myButterFly).size() > 3) {
+		if (isButterflyDanger) {
 
 			Collection<MyCoordinate> surrounded = board
 					.getAdjacentOccupiedLocation(myButterFly);

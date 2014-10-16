@@ -16,6 +16,7 @@ import hanto.studentdorukruofan.common.WalkValidator;
 import hanto.tournament.HantoMoveRecord;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -56,7 +57,7 @@ public class EpsilonHantoGame extends BaseHantoGame{
 		}
 		
 		gameEndsCheck();
-		placeButterflyBy4(pieceType);
+		placeButterflyBy4();
 		makeMoveCheck(pieceType, from, to);	
 		saveMove(pieceType, from, to);
 		incrementMove();	
@@ -97,7 +98,7 @@ public class EpsilonHantoGame extends BaseHantoGame{
 				possibleMoves.add(new HantoMoveRecord(type, null, to));
 			}
 		}
-		
+
 		for (MyCoordinate from : board.getAllCoords()) {
 			HantoPiece piece = board.getPieceAt(from);
 			for (MyCoordinate to : availableDestination) {

@@ -29,14 +29,7 @@ public class GammaHantoGame extends BaseHantoGame{
 	}
 	
 	protected MoveValidator getMoveValidator(HantoPieceType type){
-		switch(type){
-		case BUTTERFLY:
-			return new WalkValidator();
-		case SPARROW:
-			return new WalkValidator();
-		default:
-			return null;
-		}
+		return new WalkValidator();
 	}
 	
 }

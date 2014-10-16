@@ -124,27 +124,6 @@ public class DeltaHantoGameTest
 	}
 	
 	@Test(expected=HantoException.class)
-	public void blueDoesNotPlaceButterflyByMove4() throws HantoException
-	{
-		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[1];
-		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.BLUE, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 0));
-		game.initializeBoard(pieces);
-		game.setTurnNumber(3);
-		game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 1));
-	}
-	
-	@Test(expected=HantoException.class)
-	public void redDoesNotPlaceButterflyByMove4() throws HantoException
-	{
-		HantoTestGame.PieceLocationPair[] pieces = new HantoTestGame.PieceLocationPair[1];
-		pieces[0] = new HantoTestGame.PieceLocationPair(HantoPlayerColor.RED, HantoPieceType.SPARROW, new TestHantoCoordinate(0, 0));
-		game.initializeBoard(pieces);
-		game.setTurnNumber(3);
-		game.setPlayerMoving(RED);
-		game.makeMove(SPARROW, null, new TestHantoCoordinate(0, 1));
-	}
-	
-	@Test(expected=HantoException.class)
 	public void placePieceInNonAdjacentPosition() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));

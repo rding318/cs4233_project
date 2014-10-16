@@ -1,1 +1,1 @@
-Jump has to be on a straight line.
+ java -classpath ./Hanto.jar:./studentdorukruofan.jar hanto.tournament.TournamentRunner logv hanto.studentdorukruofan.tournament.HantoMockPlayer hanto.studentdorukruofan.tournament.HantoPlayer

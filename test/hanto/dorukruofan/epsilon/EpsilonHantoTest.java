@@ -108,10 +108,6 @@ public class EpsilonHantoTest {
 	}
 	
 	
-	
-	
-	
-	
 	/**
 	 * Factory method to create a piece location pair.
 	 * @param player the player color
