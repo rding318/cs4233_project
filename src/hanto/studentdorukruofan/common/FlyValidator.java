@@ -14,10 +14,18 @@ import hanto.common.HantoPlayerColor;
 public class FlyValidator extends MoveValidator{
 	int maxDistance;
 	
+	/**
+	 * Constructor for Fly Validator
+	 * @param maxDistance
+	 */
 	public FlyValidator(){
 		maxDistance = Integer.MAX_VALUE;
 	}
 	
+	/**
+	 * Secondary constructor for Fly Validator
+	 * @param maxDistance
+	 */
 	public FlyValidator(int maxDistance){
 		this.maxDistance = maxDistance;
 	}

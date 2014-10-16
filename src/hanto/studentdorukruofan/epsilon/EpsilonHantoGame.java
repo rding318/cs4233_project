@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.studentdorukruofan.epsilon;
 
 import hanto.common.HantoCoordinate;
@@ -16,11 +25,15 @@ import hanto.studentdorukruofan.common.WalkValidator;
 import hanto.tournament.HantoMoveRecord;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+/**
+ * Epsilon hanto game class
+ * @author doruk, ruofan
+ *
+ */
 public class EpsilonHantoGame extends BaseHantoGame{
 
 	public EpsilonHantoGame(HantoPlayerColor moveFirst) {
@@ -64,22 +77,31 @@ public class EpsilonHantoGame extends BaseHantoGame{
 		return checkResult();
 	}
 	
+	/**
+	 * Checks if the player can resign legally
+	 * @throws HantoPrematureResignationException
+	 */
 	public void resignCheck() throws HantoPrematureResignationException{
 		if(getPossibleMoves(nextMove).size() != 0){
 			throw new HantoPrematureResignationException();
 		}
 	}
 	
+	/**
+	 * Gets all the possible moves that the player can do
+	 * @param color
+	 * @return collection of possible moves
+	 */
 	public Collection<HantoMoveRecord> getPossibleMoves(HantoPlayerColor color) {
 
 		Set<MyCoordinate> availableDestination = new HashSet<MyCoordinate>();
 		Collection<HantoMoveRecord> possibleMoves = new LinkedList<HantoMoveRecord>();
 		
 		if(moveCounter == 0) {
-			possibleMoves.add(new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new MyCoordinate(0,0)));
-			possibleMoves.add(new HantoMoveRecord(HantoPieceType.CRAB, null, new MyCoordinate(0,0)));
-			possibleMoves.add(new HantoMoveRecord(HantoPieceType.SPARROW, null, new MyCoordinate(0,0)));
-			possibleMoves.add(new HantoMoveRecord(HantoPieceType.HORSE, null, new MyCoordinate(0,0)));
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new MyCoordinate(0, 0)));
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.CRAB, null, new MyCoordinate(0, 0)));
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.SPARROW, null, new MyCoordinate(0, 0)));
+			possibleMoves.add(new HantoMoveRecord(HantoPieceType.HORSE, null, new MyCoordinate(0, 0)));
 			return possibleMoves;
 		}
 		

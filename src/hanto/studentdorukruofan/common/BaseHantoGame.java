@@ -98,6 +98,12 @@ public abstract class BaseHantoGame implements HantoGame {
 		}
 	}
 	
+	/**
+	 * Saves a given move of the given piece on the board
+	 * @param pieceType
+	 * @param from
+	 * @param to
+	 */
 	protected void saveMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) {
 		if(from == null){
@@ -138,7 +144,7 @@ public abstract class BaseHantoGame implements HantoGame {
 		if(moveCounter >= MAX_GAME_TURNS * 2){
 			throw new HantoException("The game ends after " + MAX_GAME_TURNS + " turns");
 		}
-		if(gameEnd == true){
+		if(gameEnd){
 			throw new HantoException("The game ends.");
 		}
 	}
@@ -170,7 +176,6 @@ public abstract class BaseHantoGame implements HantoGame {
 	/**
 	 * Validator method which checks if the butterfly is placed by the 4th turn for both
 	 * players.
-	 * @param pieceType
 	 * @throws HantoException
 	 */
 	protected void placeButterflyBy4() throws HantoException{
@@ -202,6 +207,11 @@ public abstract class BaseHantoGame implements HantoGame {
 		}
 	}
 	
+	/**
+	 * Validator which checks whether if a coordinate is only connected to same player's pieces
+	 * @param to
+	 * @throws HantoException
+	 */
 	protected void onlyConnectedToTeamColor(HantoCoordinate to) throws HantoException{
 		Collection<HantoPiece> neighborsPiece = board.getAdjacentPieces(to);
 		if(moveCounter == 0){

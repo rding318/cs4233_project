@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.studentdorukruofan.tournament;
 
 import hanto.common.HantoException;
@@ -8,6 +17,11 @@ import hanto.tournament.HantoMoveRecord;
 
 import java.util.Collection;
 
+/**
+ * Hanto Player class
+ * @author doruk, ruofan
+ *
+ */
 public class HantoPlayer implements HantoGamePlayer {
 	public static final double LOWEST_WEIGHT = -1000000;
 	EpsilonGameForPlayer game;
@@ -41,6 +55,7 @@ public class HantoPlayer implements HantoGamePlayer {
 				game.makeMove(opponentsMove.getPiece(),
 						opponentsMove.getFrom(), opponentsMove.getTo());
 			} catch (HantoException e) {
+				System.out.println("Opponent's move is null\n");
 			}
 		}
 
@@ -49,6 +64,7 @@ public class HantoPlayer implements HantoGamePlayer {
 			try {
 				game.makeMove(null, null, null);
 			} catch (HantoException e) {
+				System.out.println("makeMove exception was caught\n");
 			}
 			return new HantoMoveRecord(null, null, null);
 		}
@@ -66,6 +82,7 @@ public class HantoPlayer implements HantoGamePlayer {
 			game.makeMove(bestMove.getPiece(), bestMove.getFrom(),
 					bestMove.getTo());
 		} catch (HantoException e) {
+			System.out.println("makeMove exception was caught");
 		}
 		return bestMove;
 	}

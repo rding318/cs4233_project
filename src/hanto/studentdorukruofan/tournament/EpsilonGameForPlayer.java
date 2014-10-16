@@ -1,6 +1,12 @@
-/**
- * 
- */
+/*******************************************************************************
+ * This files was developed for CS4233: Object-Oriented Analysis & Design.
+ * The course was taken at Worcester Polytechnic Institute.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package hanto.studentdorukruofan.tournament;
 
 import hanto.common.HantoException;
@@ -24,7 +30,14 @@ public class EpsilonGameForPlayer extends EpsilonHantoGame {
 		super(moveFirst);
 
 	}
-
+	
+	/**
+	 * Gets the weight of a given move for hanto player.
+	 * Greater the weight, more preferrable the move
+	 * @param move
+	 * @param myColor
+	 * @return weight of the given move
+	 */
 	public double getMoveWeight(HantoMoveRecord move, HantoPlayerColor myColor) {
 		double weight = -100000;
 		
@@ -115,14 +128,8 @@ public class EpsilonGameForPlayer extends EpsilonHantoGame {
 					weight = 6 - (surrounded.size() - 1);
 					return weight;
 				}
-				if (isSurrounding && willSurround) {
-
-				}
 				if (!isSurrounding && willSurround) {
 					weight = HantoPlayer.LOWEST_WEIGHT;
-				}
-				if (!isSurrounding && !willSurround) {
-
 				}
 			} else {
 				if (neighbors.contains(new MyCoordinate(move.getTo()))) {
@@ -139,7 +146,8 @@ public class EpsilonGameForPlayer extends EpsilonHantoGame {
 		if(move.getFrom() != null){
 			MyCoordinate from = new MyCoordinate(move.getFrom());
 			double currentWeight = 1.0/from.distance(opponentButterfly);
-			if(currentWeight == weight){
+			int comparison = Double.compare(currentWeight, weight);
+			if(comparison == 0){
 				weight = 0;
 			}
 			if(currentWeight > weight){
